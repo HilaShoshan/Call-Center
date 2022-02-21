@@ -1,0 +1,23 @@
+{
+  "name": "call-center",
+  "version": "1.0.0",
+  "description": "call center data analytics system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HilaShoshan/Call-Center.git"
+  },
+  "author": "Hila Hadar Yoel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HilaShoshan/Call-Center/issues"
+  },
+  "homepage": "https://github.com/HilaShoshan/Call-Center#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
