@@ -47,6 +47,7 @@ var customers = ["(1111, 'Rony', 'Cohen', '2000-7-04', 'Haifa', 1, 0, 1, 1)",
                  "(1112, 'Dan', 'Avraham', '1990-4-28', 'Tel-Aviv', 0, 1, 1, 1)",
                  "(1122, 'Harel', 'Shwarts', '1440-1-01', 'Nahariya', 0, 0, 0, 1)",
                  "(1222, 'Efrat', 'Saada', '1667-5-13', 'Jerusalem', 1, 1, 1, 1)",
+                 "(1122, 'dudu', 'Saad', '1667-5-23', 'Tel-Aviv', 0, 0, 0, 1)",
                  "(2222, 'Simon', 'Levayev', '1992-12-12', 'Bnei-Brak', 0, 1, 1, 1)"]
 
 for (let i = 0; i < customers.length; i++) {
