@@ -39,6 +39,13 @@ function doQuery(query) {
     })
 }
 
+//create connection
+
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))
+
+// create customerdata table
+
 doQuery("DELETE FROM call_center.customerdata")
 
 var customers = ["(1111, 'Rony', 'Cohen', '2000-7-04', 'Haifa', 1, 0, 1, 1)",
@@ -55,6 +62,13 @@ for (let i = 0; i < customers.length; i++) {
 
 doQuery("SELECT * FROM call_center.customerdata")
 
-//create connection
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))
+// create calldata table
+
+doQuery("DELETE FROM call_center.calldata")
+
+//simulator
+
+// for loop that generats calls
+
+doQuery("SELECT * FROM call_center.calldata")
+
