@@ -17,10 +17,10 @@ app.use(bodyparser.urlencoded({
  
 // Database connection
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "newuser",
-    password: "111",
-    database: "call_center" 
+    host: "mysql5045.site4now.net",
+    user: "a83a40_center",
+    password: "callcenter111",
+    database: "db_a83a40_center" 
 }) 
  
 db.connect(function (err) {
@@ -41,12 +41,13 @@ function doQuery(query) {
 
 //create connection
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3306
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))
 
 // create customerdata table
 
-doQuery("DELETE FROM call_center.customerdata")
+/*
+doQuery("DELETE FROM customerdata")
 
 var customers = ["(1111, 'Rony', 'Cohen', '2000-7-04', 'Haifa', 1, 0, 1, 1)",
                  "(1112, 'Dan', 'Avraham', '1990-4-28', 'Tel-Aviv', 0, 1, 1, 1)",
@@ -55,20 +56,21 @@ var customers = ["(1111, 'Rony', 'Cohen', '2000-7-04', 'Haifa', 1, 0, 1, 1)",
                  "(2222, 'Simon', 'Levayev', '1992-12-12', 'Bnei-Brak', 0, 1, 1, 1)"]
 
 for (let i = 0; i < customers.length; i++) {
-    doQuery("INSERT INTO call_center.customerdata \
+    doQuery("INSERT INTO customerdata \
         (CustomerID, FirstName, LastName, DateOfBirth, City, Gender, Internet, CableTV, Cellular) \
         VALUES " + customers[i])
 }
 
-doQuery("SELECT * FROM call_center.customerdata")
+doQuery("SELECT * FROM customerdata")
+*/
 
 // create calldata table
 
-doQuery("DELETE FROM call_center.calldata")
+///doQuery("DELETE FROM calldata")
 
 //simulator
 
 // for loop that generats calls
 
-doQuery("SELECT * FROM call_center.calldata")
+// doQuery("SELECT * FROM test_table")
 
