@@ -5,6 +5,7 @@ const mysql = require('mysql')
 const multer = require('multer')
 const path = require('path')
 const { YEAR } = require('mysql/lib/protocol/constants/types')
+const { consumers } = require('stream')
  
  
 //use express static folder
@@ -15,7 +16,7 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({
     extended: true
 }))
- 
+
 // Database connection
 const db = mysql.createConnection({
     host: "mysql5045.site4now.net",
@@ -32,6 +33,7 @@ db.connect(function (err) {
 })
 
 function doQuery(query) {
+    console.log("QUERY: ", query)
     db.query(query, (err, result, field)=>{
         if(err) {
             return console.log(err)
@@ -41,13 +43,12 @@ function doQuery(query) {
 }
 
 //create connection
-
 const PORT = process.env.PORT || 3306
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))
 
 // doQuery("SELECT * FROM customerdata")
 
-//simulator of calls
+// simulator of calls
 
 function getRndInteger(min, max) {
     /**
@@ -99,7 +100,7 @@ function getRndTime(dateOfBirth) {
     var hour = getRndInteger(8,17)
     var minute = getRndInteger(0,59)
     var second = getRndInteger(0,59)
-    var date = getRndDate(false, dateOfBirth.getYear())
+    var date = getRndDate(false, dateOfBirth.getFullYear())
     return new Date(date[0], date[1], date[2], hour, minute, second)
 }
 
@@ -108,8 +109,35 @@ function getDifferenceInYears(date1, date2) {
     return diffInMs / (1000 * 60 * 60 * 24 * 365);
 }
 
+function myConvert(datetime_str) {
+    const splitted = datetime_str.split(", ")  // split the date and the time 
+    const datesplitted = splitted[0].split(".")
+    var yyyy = datesplitted[2]
+    var mm = datesplitted[1]
+    var dd = datesplitted[0]
+    if (mm.length == 1) {
+        mm = "0" + mm
+    }
+    if (dd.length == 1) {
+        dd = "0" + dd
+    }
+    var date = yyyy + mm + dd
+    var ampm = "AM"
+    var hh = splitted[1].slice(0,splitted[1].length-6)  // the hour only (hh)
+    if (parseInt(hh) > 12) {
+        var int_hour = parseInt(hh) - 12
+        hh = int_hour.toString()
+        ampm = "PM"
+    }
+    if (hh.length == 1) {
+        hh = "0" + hh
+    }
+    var ms = splitted[1].slice(splitted[1].length-6)  // the rest of the string, which is :mm:ss
+    return date + " " + hh + ms + " " + ampm
+}
+
 const periods = ["holidays", "summer vacations", "normal"]
-const cities = ["Jerusalem", "Tel-Aviv", "Haifa", "Nahariya", "Petah-Tikva", "Ashdod", "Netanya", "Bnei Brak", "Holon", "Beersheba"]
+const cities = ["Jerusalem", "Tel-Aviv", "Haifa", "Nahariya", "Petah-Tikva", "Ashdod", "Netanya", "Bnei-Brak", "Holon", "Beersheba"]
 const topics = ["join", "service", "complaint", "disconnect"]
 
 for (let i = 0; i < 2; i++) {
@@ -133,12 +161,10 @@ for (let i = 0; i < 2; i++) {
     else 
         var cellular = getRndInteger(0,1)
 
-    var record = "(" + customerID + "," + period + "," + callTime.toUTCString() + "," + numOfCalls + "," + cableTV + "," + cellular + "," + topic + "," + age + "," + gender + "," + city + ")"
+    var record = "(" + i + "," + customerID + ",'" + period + "','" + myConvert(callTime.toLocaleString()) + "'," + numOfCalls + "," + internet + "," + cableTV + "," + cellular + ",'" + topic + "'," + age + "," + gender + ",'" + city + "'" + ")"
     // console.log(record)
     
-    doQuery("INSERT INTO calldata \
-        (customerID, period, callTime, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) \
-        VALUES " + record) 
+    // doQuery("INSERT INTO calldata (callID, customerID, period, callTime, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) VALUES " + record)
 }
 
 // doQuery("SELECT * FROM test_table")
