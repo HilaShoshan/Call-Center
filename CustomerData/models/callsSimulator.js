@@ -6,7 +6,7 @@ const multer = require('multer')
 const path = require('path')
 const { YEAR } = require('mysql/lib/protocol/constants/types')
 const { consumers } = require('stream')
- 
+
  
 //use express static folder
 app.use(express.static("./public"))
@@ -33,7 +33,7 @@ db.connect(function (err) {
 })
 
 function doQuery(query) {
-    console.log("QUERY: ", query)
+    // console.log("QUERY: ", query)
     db.query(query, (err, result, field)=>{
         if(err) {
             return console.log(err)
@@ -94,9 +94,11 @@ function getRndDate(birth, yearOfBirth) {
     return [year, month-1, day]
 }
 
-// get a random call-time
-// suppose that the working hours are 8:00-18:00
 function getRndTime(dateOfBirth) {
+    /**
+     * get a random call-time
+     * suppose that the working hours are 8:00-18:00
+     */
     var hour = getRndInteger(8,17)
     var minute = getRndInteger(0,59)
     var second = getRndInteger(0,59)
@@ -109,9 +111,8 @@ function getDifferenceInYears(date1, date2) {
     return diffInMs / (1000 * 60 * 60 * 24 * 365);
 }
 
-function myConvert(datetime_str) {
-    const splitted = datetime_str.split(", ")  // split the date and the time 
-    const datesplitted = splitted[0].split(".")
+function dateConvert(date_srt) {
+    const datesplitted = date_srt.split(".")
     var yyyy = datesplitted[2]
     var mm = datesplitted[1]
     var dd = datesplitted[0]
@@ -121,51 +122,98 @@ function myConvert(datetime_str) {
     if (dd.length == 1) {
         dd = "0" + dd
     }
-    var date = yyyy + mm + dd
-    var ampm = "AM"
+    return yyyy + "-" + mm + "-" + dd
+}
+
+function datetimeConvert(datetime_str) {
+    /**
+     * convert the given string to a format of YYYY-MM-DD hh:mm:ss
+     * the returned string can be inserted to MySQL table
+     */
+    const splitted = datetime_str.split(", ")  // split the date and the time 
+    var date = dateConvert(splitted[0])
     var hh = splitted[1].slice(0,splitted[1].length-6)  // the hour only (hh)
-    if (parseInt(hh) > 12) {
-        var int_hour = parseInt(hh) - 12
-        hh = int_hour.toString()
-        ampm = "PM"
-    }
     if (hh.length == 1) {
         hh = "0" + hh
     }
     var ms = splitted[1].slice(splitted[1].length-6)  // the rest of the string, which is :mm:ss
-    return date + " " + hh + ms + " " + ampm
+    return date + " " + hh + ms
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////// BUG /////////////////////////////////////////////////////////
+function exists(result) {
+    /**
+     * check if a customer is in the company, by his id
+     */
+    // var result = doQuery("SELECT COUNT(CustomerID) FROM customerdata WHERE CustomerID = " + id)
+    //console.log("ma kore haverim shelyyyyyyy")
+    //console.log(result)
+    if (result == 0) 
+        return false
+    return true
+}
+exists(doQuery("SELECT COUNT(CustomerID) FROM customerdata WHERE CustomerID = 4598"))
+/////////////////////////////// result is UNDEFINED /////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function randomNameGenerator() {
+   let res = '';
+   for(let i = 0; i < 5; i++) {
+      const random = Math.floor(Math.random() * 27)
+      res += String.fromCharCode(97 + random)
+   }
+   return res
+}
+
+// arrays
 const periods = ["holidays", "summer vacations", "normal"]
 const cities = ["Jerusalem", "Tel-Aviv", "Haifa", "Nahariya", "Petah-Tikva", "Ashdod", "Netanya", "Bnei-Brak", "Holon", "Beersheba"]
-const topics = ["join", "service", "complaint", "disconnect"]
+const topics = ["service", "complaint", "disconnect"]  // topics for an exists customer
 
 for (let i = 0; i < 2; i++) {
     var customerID = getRndInteger(1000,9999)
-    // if does not exist:
-        var date = getRndDate(true)
-        var dateOfBirth = new Date(date[0], date[1], date[2])
-        var numOfCalls = 0
-        var gender = getRndInteger(0,1)  // 0 = male, 1 = female
-        var city = cities[getRndInteger(0,cities.length-1)]
-        // add it to customerdata !
-        var topic = "join"
-    //
-    var period = periods[getRndInteger(0,periods.length-1)]
-    var callTime = getRndTime(dateOfBirth)
-    var age = Math.floor(getDifferenceInYears(dateOfBirth, callTime))  // age while calling
     var internet = getRndInteger(0,1)
     var cableTV = getRndInteger(0,1)
     if (internet == 0 && cableTV == 0) 
         var cellular = 1
     else 
         var cellular = getRndInteger(0,1)
+    if (!exists(customerID)) {
+        var date = getRndDate(true)
+        var dateOfBirth = new Date(date[0], date[1], date[2])
+        var birthday = dateConvert(dateOfBirth.toLocaleString().split(", ")[0])  // in a format we can enter to MySQL table
+        var numOfCalls = 0
+        var gender = getRndInteger(0,1)  // 0 = male, 1 = female
+        var city = cities[getRndInteger(0,cities.length-1)]
+        var topic = "join"
+        var firstName = randomNameGenerator()
+        var lastName = randomNameGenerator()
+        // add the new customer to customerdata
+        var customerrecord = "(" + customerID + ",'" + firstName + "','" + lastName + "','" + birthday + "','" + city + "'," + gender + "," + internet + "," + cableTV + "," + cellular + ")"
+        console.log("customerrecord: " + customerrecord)
+        doQuery("INSERT INTO customerdata \
+                (CustomerID, FirstName, LastName, DateOfBirth, City, Gender, Internet, CableTV, Cellular) \
+                VALUES " + customerrecord)
+    }
+    else {
+        var birthday = doQuery("SELECT DateOfBirth FROM customerdata WHERE CustomerID = " + customerID)
+        const splitted = birthday.split("-")
+        var dateOfBirth = new Date(splitted[0], splitted[1], splitted[2])
+        var numOfCalls = getRndInteger(0,20)  // check if there there are calls from the same month. if so, change the range
+        var topic = topics[getRndInteger(0,topics.length-1)]
+        var gender = doQuery("SELECT Gender FROM customerdata WHERE CustomerID = " + customerID)
+        var city = doQuery("SELECT City FROM customerdata WHERE CustomerID = " + customerID)
+    }
+    var period = periods[getRndInteger(0,periods.length-1)]
+    var callTime = getRndTime(dateOfBirth)
+    var age = Math.floor(getDifferenceInYears(dateOfBirth, callTime))  // age while calling
 
-    var record = "(" + i + "," + customerID + ",'" + period + "','" + myConvert(callTime.toLocaleString()) + "'," + numOfCalls + "," + internet + "," + cableTV + "," + cellular + ",'" + topic + "'," + age + "," + gender + ",'" + city + "'" + ")"
-    // console.log(record)
+    var callrecord = "(" + i + "," + customerID + ",'" + period + "','" + datetimeConvert(callTime.toLocaleString()) + "'," + numOfCalls + "," + internet + "," + cableTV + "," + cellular + ",'" + topic + "'," + age + "," + gender + ",'" + city + "'" + ")"
+    // console.log(callrecord)
     
     // doQuery("INSERT INTO calldata (callID, customerID, period, callTime, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) VALUES " + record)
-}
+} 
 
 // doQuery("SELECT * FROM test_table")
 
