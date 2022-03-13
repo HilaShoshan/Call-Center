@@ -5,7 +5,7 @@ const Kafka = require("node-rdkafka");
 
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
-  "metadata.broker.list": "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,moped-03.srvs.cloudkafka.com:9094".split(","),
+  "metadata.broker.list": "rocket-01.srvs.cloudkafka.com:9094,rocket-02.srvs.cloudkafka.com:9094,rocket-03.srvs.cloudkafka.com:9094".split(","),
   "socket.keepalive.enable": true,
   "security.protocol": "SASL_SSL",
   "sasl.mechanisms": "SCRAM-SHA-256",
@@ -15,7 +15,7 @@ const kafkaConf = {
 };
 
 const prefix = "zaxe17g1-";
-const topic = `${prefix}node-rdkafka`;
+const topic = `${prefix}CallCenterAnalytics`;
 const producer = new Kafka.Producer(kafkaConf);
 
 const genMessage = m => new Buffer.alloc(m.length,m);

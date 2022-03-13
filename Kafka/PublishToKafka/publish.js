@@ -3,10 +3,10 @@
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
 
-// use you own parameters
+// use you own parameters  .. cloudkarafka-example
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
-  "metadata.broker.list": "moped-01.srvs.cloudkafka.com:9094,moped-02.srvs.cloudkafka.com:9094,moped-03.srvs.cloudkafka.com:9094".split(","),
+  "metadata.broker.list": "	rocket-01.srvs.cloudkafka.com:9094,rocket-02.srvs.cloudkafka.com:9094,rocket-03.srvs.cloudkafka.com:9094".split(","),
   "socket.keepalive.enable": true,
   "security.protocol": "SASL_SSL",
   "sasl.mechanisms": "SCRAM-SHA-256",
