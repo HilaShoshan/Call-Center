@@ -1,9 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
 const PORT = 3000;
-var app = express();
+const mySQL = require('./models/mysql');
+const MySQL = require('./models/mysql');
+const app = express();
+let db = null;
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -32,9 +34,28 @@ app.use(express.json());
 //   res.render('error');
 // });
 
-app.get('/hatif', (req, res, next) => {
-  res.send("Hi hatif");
+// BEN HILA
+
+app.get('/:id', async (req, res, next) => {
+
+  console.log(req.params.id);
+  // talk to my sql modeldd
+  const customerData = await db.getCustomer(req.params.id);
+  
+  let data = { exists: false};
+  if(!!customerData){
+    data = {
+      exists: true,
+      customerData
+    }
+  }
+
+  res.json(data);
 });
 
-app.listen(PORT, () => console.log(`Server is running at port ${PORT}`))
+app.listen(PORT, () => 
+{
+  console.log(`Server is running at port ${PORT}`);
+  db = new MySQL();
+});
 
