@@ -1,41 +1,56 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const http = require('http');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const express = require('express');
+const redis = require('./redisClient');
+const kafkaConsumer = require('./kafkaConsumer');
+//const dashboardController = require('./controllers/dashboardController');
 
-var app = express();
+const app = express();
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server);
+const PORT = 3000;
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+//app.set('view engine', 'ejs');
+//app.set('views', 'views');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.get('/dashboard', dashboardController.renderDashboard);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+io.on('connection', socket => {
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    console.log('client connected');
+    
+    socket.on('disconnect', () => {
+      console.log('client disconnected');
+    });
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+    // reciving data in json format
+    kafkaConsumer.fetchData((err, reply) => {
+      if(err) console.log(err);
+      redis.storeData(reply)
+      .then(reply => console.log("redis received data"))
+      .catch(err => console.log(err));
+    })
+/*
+    socket.on('AllSectionStats', () => {
+      dashboardController.AllSectionStats(socket, redis);
+    });
 
-module.exports = app;
+    socket.on('SectionStat', sectionNum => {
+      dashboardController.SectionStats(socket, sectionNum, redis);
+    });
+
+    socket.on('TrafficInfo', () => {
+      dashboardController.TrafficInfo(socket, redis);
+    });
+    */
+  });
+
+server.listen(PORT, err => 
+  {
+    if (err) console.log('Error in server setup')
+    console.log('Server listening on Port');
+  })

@@ -2,7 +2,9 @@
 
 const uuid = require("uuid");
 const Kafka = require("node-rdkafka");
+const redis = require("redis");
 
+let client = redis.createClient();
 const kafkaConf = {
   "group.id": "cloudkarafka-example",
   "metadata.broker.list": "rocket-01.srvs.cloudkafka.com:9094,rocket-02.srvs.cloudkafka.com:9094,rocket-03.srvs.cloudkafka.com:9094".split(","),
@@ -36,7 +38,14 @@ consumer.on("ready", function(arg) {
 });
 
 consumer.on("data", function(m) {
- console.log(m.value.toString());
+  console.log(m.value.toString());
+  console.log("calling commit");
+  consumer.commit(m);
+  console.log("The value is : " + m.value.toString());
+  const s = m.value.toString();
+  let content = JSON.parse(s);
+// console.log(content.id);
+  client.set(content.id+"", s, redis.print);
 });
 consumer.on("disconnected", function(arg) {
   process.exit();
