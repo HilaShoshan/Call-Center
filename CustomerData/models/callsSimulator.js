@@ -8,6 +8,9 @@ const { YEAR } = require('mysql/lib/protocol/constants/types')
 const { consumers } = require('stream')
 const { resolve } = require('path')
 
+var server = require('http').createServer(app);
+const kafka = require('../../Kafka/PublishToKafka/publish');
+
 
 //use express static folder
 app.use(express.static("./public"))
@@ -214,12 +217,15 @@ for (let i = 0; i < 1; i++) {
         var callTime = getRndTime(dateOfBirth)
         var age = Math.floor(getDifferenceInYears(dateOfBirth, callTime))  // age while calling
 
-        var callrecord = "(" + i + "," + customerID + ",'" + period + "','" + datetimeConvert(callTime.toLocaleString()) + "'," + numOfCalls + "," + internet + "," + cableTV + "," + cellular + ",'" + topic + "'," + age + "," + gender + ",'" + city + "'" + ")"
-        console.log("callrecord: " + callrecord)
+        var callrecord = i + "," + customerID + ",'" + period + "','" + datetimeConvert(callTime.toLocaleString()) + "'," + numOfCalls + "," + internet + "," + cableTV + "," + cellular + ",'" + topic + "'," + age + "," + gender + ",'" + city + "'"
+        // console.log("callrecord: " + callrecord)
+        app.get('/', (req, res) => {kafka.publish(callrecord);res.send('message was sent')});
+            
+        // doQuery("INSERT INTO calldata (callID, customerID, period, callTime, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) VALUES " + "(" + callrecord + ")")
         
-        doQuery("INSERT INTO calldata (callID, customerID, period, callTime, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) VALUES " + callrecord)
     })()
 }
 
-// doQuery("SELECT * FROM test_table")
+server.listen(3000, () => console.log(`Ariel app listening at http://localhost:${3000}`));
 
+// doQuery("SELECT * FROM test_table")
