@@ -1,18 +1,21 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const PORT = 3000;
-const mySQL = require('./models/mysql');
-const MySQL = require('./models/mysql');
-const app = express();
-let db = null;
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const MySQL = require('./models/mysql')
+const app = express()
+
+const PORT = 3000
+let db = null
+
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({extended: true}))
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
 
 // app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json())
 // app.use(express.urlencoded({ extended: false }));
 
 // // app.use('/', indexRouter);
@@ -37,25 +40,40 @@ app.use(express.json());
 // BEN HILA
 
 app.get('/:id', async (req, res, next) => {
+  /**
+   * get the customer data by id
+   */
+  const customerData = await db.getCustomer(req.params.id)  // get data about this id
 
-  console.log(req.params.id);
-  // talk to my sql modeldd
-  const customerData = await db.getCustomer(req.params.id);
-  
-  let data = { exists: false};
-  if(!!customerData){
+  let data = { exists: false }
+  if (!!customerData) {
     data = {
       exists: true,
       customerData
     }
   }
+  res.json(data)
+})
 
-  res.json(data);
-});
+app.post('/add', async (req, res, next) => {
+  /**
+   * add a new customer record to the dataset
+   */
+  console.log("app.js/post")
+  const answer = await db.addCustomer(req.body.record)
+  res.json({ answer: "OK" })
+})
 
-app.listen(PORT, () => 
-{
+app.delete('/:id', async (req, res, next) => {
+  /**
+   * delete the customer with the given id from the dataset
+   */
+   const answer = await db.deleteCustomer(req.params.id)
+   res.json({ answer: "OK" })
+})
+
+app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
   db = new MySQL();
-});
+})
 

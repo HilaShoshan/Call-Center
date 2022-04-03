@@ -8,7 +8,7 @@ function getRndInteger(min, max) {
 function randomNameGenerator() {
     let res = '';
     for (let i = 0; i < 5; i++) {
-        const random = Math.floor(Math.random() * 27)
+        const random = Math.floor(Math.random() * 26)
         res += String.fromCharCode(97 + random)
     }
     return res

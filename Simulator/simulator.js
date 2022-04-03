@@ -1,6 +1,8 @@
 // BEN HILA
 
 const utils = require("./utils")
+const ApiService = require('./api-service')
+const HOST = 'http://localhost:3000'
 
 // arrays
 periods = ["holidays", "summer vacations", "normal"]
@@ -68,13 +70,9 @@ class CallsSimulator {
         return JSON.stringify(callObj)
     }
 
-    getCallRecord(customerId, exists, customerData) {
-        // console.log("ID: ", customerId)
-        // console.log("customerData: ", customerData)
-        // console.log("___________________________________")
+    // TODO: add a built-in bias
+    async getCallRecord(customerId, exists, customerData) {
         var customerrecord = undefined
-        //TODO: define an enum named DO
-        var DO = undefined  // a variable that says what we need to do on customerData table (add / delete / alter)
         const {internet, cableTV, cellular} = this.getCallProduct()
         if (!exists) {  // this is a new customer (that wants to join)
             var dateOfBirth = this.getRndBirthday()
@@ -87,22 +85,26 @@ class CallsSimulator {
             var lastName = utils.randomNameGenerator()
             // create a new customer record that the server will add to customerdata table
             customerrecord = "(" + customerId + ",'" + firstName + "','" + lastName + "','" + birthday + "','" + city + "'," + gender + "," + internet + "," + cableTV + "," + cellular + "," + numOfCalls + ")"
+            await ApiService.post(HOST + '/add' , { record : customerrecord })
         }
         else {  // the customer already exists in our company
             var birthday = customerData.DateOfBirth  // for computing the age
             const splitted = birthday.split("-")
             var dateOfBirth = new Date(splitted[0], splitted[1], splitted[2].split("T")[0])
-            var numOfCalls = customerData.num_calls
+            var numOfCalls = customerData.NumCalls
             var gender = customerData.gender
             var city = customerData.city
             var topic = topics[utils.getRndInteger(0,topics.length-1)]
+            if (topic == "disconnect") {
+                await ApiService.delete(HOST + '/' + customerId)  // delete the customer from the db
+            }
         }
         var period = periods[utils.getRndInteger(0, periods.length - 1)]
         var callTime = new Date()
         var age = Math.floor(utils.getDifferenceInYears(dateOfBirth, callTime))  // age while calling
         var callDuration = utils.getRndInteger(1,70)  // random call duration in minutes
         const callrecord = this.createCallJSON(customerId, period, callTime, callDuration, numOfCalls, internet, cableTV, cellular, topic, age, gender, city)
-        return callrecord  //TODO: fix the return
+        return callrecord 
     }
 }
 

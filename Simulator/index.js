@@ -1,19 +1,20 @@
 // BEN HILA
 
 
-const ApiService = require('./api-service');
-const CallsSimulator = require('./simulator');
-const callsSimulator = new CallsSimulator();
-const HOST = 'http://localhost:3000';
+const ApiService = require('./api-service')
+const CallsSimulator = require('./simulator')
+const callsSimulator = new CallsSimulator()
+const HOST = 'http://localhost:3000'
 
 
 async function sendCallRecord() {
 
     // get customer ID from simulator
-    var customerId = callsSimulator.getCustomerID();
+    var customerId = callsSimulator.getCustomerID()
+    console.log("customerId: ", customerId)
 
     // ask the server to check if the ID is of an existing customer
-    const res = await ApiService.get(HOST + '/' + customerId); 
+    const res = await ApiService.get(HOST + '/' + customerId)
 
     /** res is a JSON in form:
      * 
