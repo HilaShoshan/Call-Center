@@ -6,30 +6,44 @@ const CallsSimulator = require('./simulator');
 const callsSimulator = new CallsSimulator();
 const HOST = 'http://localhost:3000';
 
-async function letGO(){
 
-// get id from simulator
-const customerId = callsSimulator.getCustomerID();
+async function sendCallRecord() {
 
+    // get customer ID from simulator
+    var customerId = callsSimulator.getCustomerID();
 
-// use id to request server
-const res = await ApiService.get(HOST + '/' + customerId); 
+    // ask the server to check if the ID is of an existing customer
+    const res = await ApiService.get(HOST + '/' + customerId); 
 
-console.log(res);
+    /** res is a JSON in form:
+     * 
+     * If not exists: { exists: false }
+     * ELSE: {
+                exists: true,
+                customerData: {
+                    CustomerID: 1111,
+                    FirstName: 'Rony',
+                    LastName: 'Cohen',
+                    DateOfBirth: '2000-07-03T21:00:00.000Z',
+                    City: 'Haifa',
+                    Gender: 1,
+                    Internet: 0,
+                    CableTV: 1,
+                    Cellular: 1
+                }
+            }
+     */
 
-/**
- * {
- * exists: boolean
- * customerData?: Customer
- * }
- */
+    // send res details to the simulator and get a call record 
+    var exists = false
+    if (res.exists) {
+        exists = true
+    }
+    callRecord = callsSimulator.getCallRecord(customerId, exists, res.customerData)
 
-// use data in simulator hatif function (grill)
-   
-
-// use apiService post 
+    // use apiService post 
 
 }
 
 
-letGO();
+sendCallRecord()
