@@ -1,5 +1,4 @@
 const mysql = require('mysql')
-const kafka = require('../../Kafka/PublishToKafka/publish')
 
 // Database connection
 const db = mysql.createConnection({
@@ -46,11 +45,6 @@ class MySQL {
             return true
         }
         return false
-    }
-
-    async sendCall(callRecord) {
-        kafka.publish(callRecord)
-        return true
     }
 
     async deleteCustomer(id) {

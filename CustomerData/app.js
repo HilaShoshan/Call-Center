@@ -1,99 +1,22 @@
-const createError = require('http-errors')
 const express = require('express')
-const path = require('path')
-const MySQL = require('./models/mysql')
+const Handlers = require('./controllers/handlers')
 const app = express()
 
 const PORT = 3000
-let db = null
 
 var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended: true}))
 
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-
-// app.use(logger('dev'));
 app.use(express.json())
-// app.use(express.urlencoded({ extended: false }));
 
-// // app.use('/', indexRouter);
-// // app.use('/users', usersRouter);
+app.get('/:id', Handlers.getId_cb)
 
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
+app.post('/addCustomer', Handlers.addCustomer_cb)
 
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.post('/sendCall', Handlers.sendCall_cb)
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-
-app.get('/:id', async (req, res, next) => {
-  /**
-   * get the customer data by id
-   */
-  const customerData = await db.getCustomer(req.params.id)  // get data about this id
-
-  let data = { exists: false }
-  if (!!customerData) {
-    data = {
-      exists: true,
-      customerData
-    }
-  }
-  res.json(data)
-})
-
-app.post('/addCustomer', async (req, res, next) => {
-  /**
-   * add a new customer record to the dataset
-   */
-  const answer = await db.addCustomer(req.body.record)
-  if (answer) {
-    res.json({ answer: "OK" })
-  }
-  else {
-    res.json({ answer: "FAILED" })
-  }
-})
-
-app.post('/sendCall', async (req, res, next) => {
-  /**
-   * add a new customer record to the dataset
-   */
-  const answer = await db.sendCall(req.body)
-  if (answer) {
-    res.json({ answer: "OK" })
-  }
-  else {
-    res.json({ answer: "FAILED" })
-  }
-})
-
-app.delete('/:id', async (req, res, next) => {
-  /**
-   * delete the customer with the given id from the dataset
-   */
-   const answer = await db.deleteCustomer(req.params.id)
-   if (answer) {
-    res.json({ answer: "OK" })
-  }
-  else {
-    res.json({ answer: "FAILED" })
-  }
-})
+app.delete('/:id', Handlers.deleteCustomer_cb)
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)
-  db = new MySQL();
 })
-
