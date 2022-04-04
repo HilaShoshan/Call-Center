@@ -1,13 +1,11 @@
-// BEN HILA
-
 const utils = require("./utils")
 const ApiService = require('./api-service')
 const HOST = 'http://localhost:3000'
 
 // arrays
-periods = ["holidays", "summer vacations", "normal"]
-cities = ["Jerusalem", "Tel-Aviv", "Haifa", "Nahariya", "Petah-Tikva", "Ashdod", "Netanya", "Bnei-Brak", "Holon", "Beersheba"]
-topics = ["service", "complaint", "disconnect"]  // topics for an exists customer
+var periods = ["holidays", "summer vacations", "normal"]
+var cities = ["Ariel", "Jerusalem", "Tel-Aviv", "Haifa", "Nahariya", "Petah-Tikva", "Ashdod", "Netanya", "Bnei-Brak", "Holon", "Beersheba"]
+var topics = ["service", "complaint", "disconnect"]  // topics for an exists customer
 
 class CallsSimulator {
 
@@ -53,6 +51,34 @@ class CallsSimulator {
         return new Date(year, month-1, day)
     }
 
+    biasedTopic(age, gender, city, numOfCalls) {
+        // teenagers are more likely to ask for service
+        if (age < 21) {
+            for (let i = 0; i < 12; i++) {
+                topics.push("service")
+            }
+        }
+        // older women who call probably call to complain
+        if (age > 45 && gender == 1) {
+            for (let i = 0; i < 10; i++) {
+                topics.push("complaint")
+            }
+            if (city == "Nahariya" || city == "Holon") {
+                for (let i = 0; i < 5; i++) {
+                    topics.push("complaint")
+                }
+            }
+        }
+        // The more times a customer has called in the last month, 
+        // the more likely they are to want to complaint, and more likely to disconnect
+        for (let i = 0; i < numOfCalls; i++) {
+            topics.push("complaint")
+            topics.push("disconnect", "disconnect")
+        }
+        // console.log("biases topics: ", topics)
+        return topics[utils.getRndInteger(0,topics.length-1)]
+    }
+
     createCallJSON(customerId, period, callTime, callDuration, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) {
         var callObj = new Object()
         callObj.customerId = customerId
@@ -70,13 +96,16 @@ class CallsSimulator {
         return JSON.stringify(callObj)
     }
 
-    // TODO: add a built-in bias
     async getCallRecord(customerId, exists, customerData) {
         var customerrecord = undefined
+        var callTime = new Date()
+        var period = periods[utils.getRndInteger(0, periods.length - 1)]
         const {internet, cableTV, cellular} = this.getCallProduct()
+        var callDuration = utils.getRndInteger(1,70)  // random call duration in minutes
         if (!exists) {  // this is a new customer (that wants to join)
             var dateOfBirth = this.getRndBirthday()
             var birthday = utils.dateConvert(dateOfBirth.toLocaleString().split(", ")[0])  // in a format we can enter to MySQL table
+            var age = Math.floor(utils.getDifferenceInYears(dateOfBirth, callTime))  // age while calling
             var numOfCalls = 0  // number of calls during the last month
             var gender = utils.getRndInteger(0, 1)  // 0 = male, 1 = female
             var city = cities[utils.getRndInteger(0, cities.length - 1)]
@@ -91,21 +120,18 @@ class CallsSimulator {
             var birthday = customerData.DateOfBirth  // for computing the age
             const splitted = birthday.split("-")
             var dateOfBirth = new Date(splitted[0], splitted[1], splitted[2].split("T")[0])
+            var age = Math.floor(utils.getDifferenceInYears(dateOfBirth, callTime))  // age while calling
             var numOfCalls = customerData.NumCalls
-            var gender = customerData.gender
-            var city = customerData.city
-            var topic = topics[utils.getRndInteger(0,topics.length-1)]
+            var gender = customerData.Gender
+            var city = customerData.City
+            var topic = this.biasedTopic(age, gender, city, numOfCalls)
             if (topic == "disconnect") {
                 await ApiService.delete(HOST + '/' + customerId)  // delete the customer from the db
             }
         }
-        var period = periods[utils.getRndInteger(0, periods.length - 1)]
-        var callTime = new Date()
-        var age = Math.floor(utils.getDifferenceInYears(dateOfBirth, callTime))  // age while calling
-        var callDuration = utils.getRndInteger(1,70)  // random call duration in minutes
         const callrecord = this.createCallJSON(customerId, period, callTime, callDuration, numOfCalls, internet, cableTV, cellular, topic, age, gender, city)
-        return callrecord 
+        return callrecord
     }
 }
 
-module.exports = CallsSimulator;
+module.exports = CallsSimulator

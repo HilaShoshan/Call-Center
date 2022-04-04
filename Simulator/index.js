@@ -1,6 +1,3 @@
-// BEN HILA
-
-
 const ApiService = require('./api-service')
 const CallsSimulator = require('./simulator')
 const callsSimulator = new CallsSimulator()
@@ -9,9 +6,11 @@ const HOST = 'http://localhost:3000'
 
 async function sendCallRecord() {
 
+    // TODO: Do all the code below in a for loop
+
     // get customer ID from simulator
-    var customerId = callsSimulator.getCustomerID()
-    console.log("customerId: ", customerId)
+    const customerId = callsSimulator.getCustomerID() 
+    // console.log("customerId: ", customerId)
 
     // ask the server to check if the ID is of an existing customer
     const res = await ApiService.get(HOST + '/' + customerId)
@@ -42,9 +41,8 @@ async function sendCallRecord() {
     }
     callRecord = callsSimulator.getCallRecord(customerId, exists, res.customerData)
 
-    // use apiService post 
+    // use apiService post (it will publish to Kafka)
 
 }
-
 
 sendCallRecord()

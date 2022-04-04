@@ -1,6 +1,6 @@
 // BEN HILA
 
-const mysql = require('mysql');
+const mysql = require('mysql')
 
 // Database connection
 const db = mysql.createConnection({
@@ -14,9 +14,9 @@ class MySQL {
     constructor() {
         db.connect(function (err) {
             if (err) {
-                throw err;
+                throw err
             }
-            console.log('Connected to the MySQL server.');
+            console.log('Connected to the MySQL server.')
         })
     }
 
@@ -39,7 +39,6 @@ class MySQL {
     }
 
     async addCustomer(customerRecord) {
-        console.log("mysql/addCustomer")
         console.log("record: ", customerRecord)
         const res = await this.doQuery("INSERT INTO customerdata \
         (CustomerID, FirstName, LastName, DateOfBirth, City, Gender, Internet, CableTV, Cellular, NumCalls) \
@@ -56,4 +55,4 @@ class MySQL {
     }
 }
 
-module.exports = MySQL;
+module.exports = MySQL

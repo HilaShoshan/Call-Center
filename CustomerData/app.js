@@ -37,8 +37,6 @@ app.use(express.json())
 //   res.render('error');
 // });
 
-// BEN HILA
-
 app.get('/:id', async (req, res, next) => {
   /**
    * get the customer data by id
@@ -59,7 +57,6 @@ app.post('/add', async (req, res, next) => {
   /**
    * add a new customer record to the dataset
    */
-  console.log("app.js/post")
   const answer = await db.addCustomer(req.body.record)
   res.json({ answer: "OK" })
 })
@@ -73,7 +70,7 @@ app.delete('/:id', async (req, res, next) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Server is running at port ${PORT}`);
+  console.log(`Server is running at port ${PORT}`)
   db = new MySQL();
 })
 
