@@ -39,10 +39,10 @@ async function sendCallRecord() {
     if (res.exists) {
         exists = true
     }
-    callRecord = callsSimulator.getCallRecord(customerId, exists, res.customerData)
+    var callRecord = await callsSimulator.getCallRecord(customerId, exists, res.customerData)
 
     // use apiService post (it will publish to Kafka)
-
+    await ApiService.post(HOST + '/sendCall' , callRecord)
 }
 
 sendCallRecord()

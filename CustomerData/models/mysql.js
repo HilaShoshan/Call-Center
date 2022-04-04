@@ -1,6 +1,5 @@
-// BEN HILA
-
 const mysql = require('mysql')
+const kafka = require('../../Kafka/PublishToKafka/publish')
 
 // Database connection
 const db = mysql.createConnection({
@@ -34,24 +33,32 @@ class MySQL {
     async getCustomer(id) {
         const res = await this.doQuery("SELECT * FROM customerdata WHERE CustomerID = " + id)
         console.log(res[0])
-        // if not exists undefined, else json object
+        // if not exists - undefined, else - json object
         return res[0]
     }
 
     async addCustomer(customerRecord) {
-        console.log("record: ", customerRecord)
+        // console.log("record: ", customerRecord)
         const res = await this.doQuery("INSERT INTO customerdata \
         (CustomerID, FirstName, LastName, DateOfBirth, City, Gender, Internet, CableTV, Cellular, NumCalls) \
         VALUES " + customerRecord)
-        console.log("res: ", res)
+        if (res.affectedRows == 1) {
+            return true
+        }
+        return false
+    }
+
+    async sendCall(callRecord) {
+        kafka.publish(callRecord)
         return true
     }
 
     async deleteCustomer(id) {
-        const res = await this.doQuery("DELETE FROM customerdata \
-        WHERE CustomerID = " + id)
-        console.log("res: ", res)
-        return true
+        const res = await this.doQuery("DELETE FROM customerdata WHERE CustomerID = " + id)
+        if (res.affectedRows == 1) {
+            return true
+        }
+        return false
     }
 }
 

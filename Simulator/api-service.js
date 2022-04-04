@@ -13,9 +13,9 @@ class ApiService {
     }
 
     static async post(url, data) {
-        console.log("api-service/post")
-        console.log("url is: ", url)
-        console.log("data is: ", data)
+        // console.log("api-service/post")
+        // console.log("url is: ", url)
+        // console.log("data is: ", data)
         const response = await fetch(url, {
             method: 'post',
             body: JSON.stringify(data),

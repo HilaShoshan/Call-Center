@@ -53,12 +53,30 @@ app.get('/:id', async (req, res, next) => {
   res.json(data)
 })
 
-app.post('/add', async (req, res, next) => {
+app.post('/addCustomer', async (req, res, next) => {
   /**
    * add a new customer record to the dataset
    */
   const answer = await db.addCustomer(req.body.record)
-  res.json({ answer: "OK" })
+  if (answer) {
+    res.json({ answer: "OK" })
+  }
+  else {
+    res.json({ answer: "FAILED" })
+  }
+})
+
+app.post('/sendCall', async (req, res, next) => {
+  /**
+   * add a new customer record to the dataset
+   */
+  const answer = await db.sendCall(req.body)
+  if (answer) {
+    res.json({ answer: "OK" })
+  }
+  else {
+    res.json({ answer: "FAILED" })
+  }
 })
 
 app.delete('/:id', async (req, res, next) => {
@@ -66,7 +84,12 @@ app.delete('/:id', async (req, res, next) => {
    * delete the customer with the given id from the dataset
    */
    const answer = await db.deleteCustomer(req.params.id)
-   res.json({ answer: "OK" })
+   if (answer) {
+    res.json({ answer: "OK" })
+  }
+  else {
+    res.json({ answer: "FAILED" })
+  }
 })
 
 app.listen(PORT, () => {

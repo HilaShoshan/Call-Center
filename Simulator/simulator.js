@@ -80,7 +80,7 @@ class CallsSimulator {
     }
 
     createCallJSON(customerId, period, callTime, callDuration, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) {
-        var callObj = new Object()
+        var callObj = {}
         callObj.customerId = customerId
         callObj.period = period
         callObj.callTime = callTime
@@ -93,7 +93,7 @@ class CallsSimulator {
         callObj.age = age
         callObj.gender = gender
         callObj.city = city
-        return JSON.stringify(callObj)
+        return callObj
     }
 
     async getCallRecord(customerId, exists, customerData) {
@@ -114,7 +114,7 @@ class CallsSimulator {
             var lastName = utils.randomNameGenerator()
             // create a new customer record that the server will add to customerdata table
             customerrecord = "(" + customerId + ",'" + firstName + "','" + lastName + "','" + birthday + "','" + city + "'," + gender + "," + internet + "," + cableTV + "," + cellular + "," + numOfCalls + ")"
-            await ApiService.post(HOST + '/add' , { record : customerrecord })
+            await ApiService.post(HOST + '/addCustomer' , { record : customerrecord })
         }
         else {  // the customer already exists in our company
             var birthday = customerData.DateOfBirth  // for computing the age
