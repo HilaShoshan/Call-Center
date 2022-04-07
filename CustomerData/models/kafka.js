@@ -1,10 +1,29 @@
-const kafka = require('../../Kafka/PublishToKafka/publish')
+var uuid = require('uuid')
+const rdkafka = require("node-rdkafka")
+
+const kafkaInfo = require('../../Kafka/kafkaInfo')
+
 
 class Kafka {
-    // constructor? 
+    constructor() {
+        this.producer = new rdkafka.Producer(kafkaInfo.kafkaConf)
+        this.producer.on("ready", function (arg) {
+            console.log(`producer ${arg.name} ready.`)
+        })
+        this.producer.connect()
+    }
+
+    genMessage(m) {
+        return new Buffer.alloc(m.length, m)
+    } 
+
+    publish(msg) {
+        const m = JSON.stringify(msg)
+        this.producer.produce(kafkaInfo.topic, -1, this.genMessage(m), uuid.v4())
+    }
 
     async sendCall(callRecord) {
-        kafka.publish(callRecord)
+        this.publish(callRecord)
         return true
     }
 }
