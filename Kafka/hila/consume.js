@@ -18,10 +18,6 @@ const kafkaConf = {
 
 const prefix = "zaxe17g1-";
 const topic = `${prefix}CallCenterAnalytics`;
-const producer = new Kafka.Producer(kafkaConf);
-
-const genMessage = m => new Buffer.alloc(m.length,m);
-//const prefix = process.env.CLOUDKARAFKA_USERNAME;
 
 const topics = [topic];
 const consumer = new Kafka.KafkaConsumer(kafkaConf, {
@@ -38,14 +34,15 @@ consumer.on("ready", function(arg) {
 });
 
 consumer.on("data", function(m) {
-  console.log(m.value.toString());
-  console.log("calling commit");
+  //console.log(m.value.toString());
+  //console.log("calling commit");
   consumer.commit(m);
-  console.log("The value is : " + m.value.toString());
+  //console.log("The value is : " + m.value.toString());
   const s = m.value.toString();
   let content = JSON.parse(s);
+  console.log("******** content is: ", content)
 // console.log(content.id);
-  client.set(content.id+"", s, redis.print);
+  // client.set(content.id+"", s, redis.print);
 });
 consumer.on("disconnected", function(arg) {
   process.exit();
@@ -55,6 +52,6 @@ consumer.on('event.error', function(err) {
   process.exit(1);
 });
 consumer.on('event.log', function(log) {
-  console.log(log);
+  //console.log(log);
 });
 consumer.connect();
