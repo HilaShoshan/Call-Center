@@ -6,22 +6,21 @@ const kafkaInfo = require('../../Kafka/kafkaInfo')
 
 class Kafka {
     constructor() {
-        this.topics = [kafkaInfo.topic]
         this.consumer = new rdkafka.KafkaConsumer(kafkaInfo.kafkaConf, {
             "auto.offset.reset": "beginning"
         })
         this.consumer.on("error", function (err) {
-            // console.error(err)
+            console.error(err)
         })
         this.consumer.on("ready", function (arg) {
             console.log(`Consumer ${arg.name} ready`)
-            this.consumer.subscribe(topics)
-            this.consumer.consume()
+            this.subscribe([kafkaInfo.topic])
+            this.consume()
         })
         this.consumer.on("data", function (m) {
             // console.log(m.value.toString())
             // console.log("calling commit")
-            this.consumer.commit(m)
+            this.commit(m)
             // console.log("The value is : " + m.value.toString())
             const s = m.value.toString()
             let content = JSON.parse(s)
@@ -38,6 +37,7 @@ class Kafka {
         this.consumer.on('event.log', function (log) {
             // console.log(log)
         })
+        console.log("here")
         this.consumer.connect()
     }
 }
