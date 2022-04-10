@@ -1,19 +1,17 @@
 const express = require('express')
 const app = express()
 
-//const MongoDBModel = require('./models/mongodb')
 const KafkaModel = require('./models/kafka')
-//const BigMLModel = require('./models/bigml')
-
-//let db = new MongoDBModel()
-let kafka = new KafkaModel()
-//let bigml = new BigMLModel()
+const { insertCall } = require('./controllers/calls')
 
 const PORT = 3001
 
+async function init() {
+  let kafka = new KafkaModel(insertCall)
+}
 
+// app.listen(PORT, () => {
+//   console.log(`Server is running at port ${PORT}`)
+// })
 
-
-app.listen(PORT, () => {
-  console.log(`Server is running at port ${PORT}`)
-})
+init()

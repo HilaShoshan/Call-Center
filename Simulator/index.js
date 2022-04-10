@@ -47,9 +47,21 @@ async function sendCallRecord() {
 
 var delayInMilliseconds = 0
 
-for (let i = 0; i < 1000; i++) {
-    setTimeout(function () {
+function wait(ms) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, ms);
+    });
+  }
+
+
+async function asyncCall() {
+    for (let i = 0; i < 1000; i++) {
         sendCallRecord()  // will be executed after delayInMilliseconds
-    }, delayInMilliseconds)
-    delayInMilliseconds = utils.getRndInteger(1000, 180000)  // random delay between 1 second to 3 minutes
-}
+        await wait(10000); 
+        //delayInMilliseconds = utils.getRndInteger(1000, 180000)  // random delay between 1 second to 3 minutes
+    }
+    // expected output: "resolved"
+  }
+  asyncCall();

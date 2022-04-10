@@ -1,6 +1,3 @@
-// BEN HILA
-
-
 const fetch = require('node-fetch')
 
 class ApiService {

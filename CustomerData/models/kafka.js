@@ -6,6 +6,7 @@ const kafkaInfo = require('../../Kafka/kafkaInfo')
 
 class Kafka {
     constructor() {
+        console.log("this is: ", this)
         this.producer = new rdkafka.Producer(kafkaInfo.kafkaConf)
         this.producer.on("ready", function (arg) {
             console.log(`producer ${arg.name} ready.`)

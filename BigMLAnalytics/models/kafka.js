@@ -5,7 +5,7 @@ const kafkaInfo = require('../../Kafka/kafkaInfo')
 
 
 class Kafka {
-    constructor() {
+    constructor(content_cb) {
         this.consumer = new rdkafka.KafkaConsumer(kafkaInfo.kafkaConf, {
             "auto.offset.reset": "beginning"
         })
@@ -24,8 +24,8 @@ class Kafka {
             // console.log("The value is : " + m.value.toString())
             const s = m.value.toString()
             let content = JSON.parse(s)
-            console.log("******** content is: ", content)
-            // TODO: send the content to mongo 
+            console.log(content);
+            content_cb(content)  // send the content to 'calls controller' 
         })
         this.consumer.on("disconnected", function (arg) {
             process.exit()
@@ -37,7 +37,6 @@ class Kafka {
         this.consumer.on('event.log', function (log) {
             // console.log(log)
         })
-        console.log("here")
         this.consumer.connect()
     }
 }
