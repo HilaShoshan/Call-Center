@@ -3,7 +3,7 @@ const bigml = require('bigml')
 const fs = require('fs')
 
 const { mongoDbClient } = require('../models/mongodb')
-const { BigML } = require('../models/bigml')
+const BigMLModel = require('../models/bigml')
 
 var url = "mongodb+srv://callcenter:callcenter222@callcenter.f27zc.mongodb.net/callsDB?retryWrites=true&w=majority"
 const mongoConf = {
@@ -44,13 +44,14 @@ async function trainModel_cb(req, res, next) {
     /**
      * train the data we have in mongodb to create a decision tree model
      */
+    let BigML = new BigMLModel()
     const data = await getAllCalls()
     const csv = await convertToCSV(data)
     // save the data as a csv file
     const filename = 'callsData.csv'
     fs.writeFile(filename, csv, function (err) {
         if (err) {
-            res.json({ answer: "FAILED" })
+            // res.json({ answer: "FAILED" })
         }
         console.log('callsData.csv saved successfully.')
         // train the model
@@ -63,7 +64,20 @@ async function predict_cb(req, res, next) {
     /**
      * make a prediction using our current model (last trained)
      */
-    const prediction = await BigML.predict(req.body.record)
+    let BigML = new BigMLModel()
+    // const prediction = await BigML.predict(req.body.features)
+    const prediction = await BigML.predict({ customerId: 338,
+                period: "normal", 
+                callTime: "2022-04-10T17:17:29.161Z", 
+                callDuration: 53, 
+                numOfCalls: 0,
+                internet: 0,
+                cableTV: 0, 
+                cellular: 1,
+                age: 95,
+                gender: 0,
+                city: "Netanya"
+            })
     // res.json({ answer: "OK",
     //            prediction: prediction })
 }
@@ -75,3 +89,4 @@ module.exports = {
 }
 
 trainModel_cb()
+// predict_cb()
