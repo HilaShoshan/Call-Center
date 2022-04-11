@@ -41,6 +41,15 @@ class mongoDbClient {
       console.error("Error caught,", ex)
     }
   }
+
+  async findAll(coll) {
+    try {
+      return await this.db.collection(coll).find({}).toArray()
+    }
+    catch(e) {
+      console.error("Error caught,", ex)
+    }
+  }
 }
 
 module.exports = {
