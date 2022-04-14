@@ -4,6 +4,7 @@ const app = express()
 const KafkaModel = require('./models/kafka')
 const controller = require('./controllers/calls')  // call back function dending to kafka
 
+app.use(express.static('public'))
 app.set('view engine','ejs')
 
 const PORT = 3001
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 
 app.get('/train', controller.trainModel_cb)
 
-app.post('/predict', controller.predict_cb)
+app.get('/predict', controller.predict_cb)  // change to post!
 
 
 app.listen(PORT, () => {

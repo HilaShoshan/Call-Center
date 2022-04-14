@@ -55,39 +55,16 @@ async function createCSV(filename) {
         throw err
     }
 }
-// const connection = new bigml.BigML()
-// const source = new bigml.Source()
 
 async function trainModel_cb(req, res, next) {
-    // console.log("user name:", process.env.BIGML_USERNAME);
-    // source.create('./iris.csv', function (error, sourceInfo) {
-    //     if (!error && sourceInfo) {
-    //         var dataset = new bigml.Dataset()
-    //         dataset.create(sourceInfo, function (error, datasetInfo) {
-    //             if (!error && datasetInfo) {
-    //                 var model = new bigml.Model();
-    //                 model.create(datasetInfo, function (error, modelInfo) {
-    //                     // return modelInfo
-    //                     res.json({ model: modelInfo })
-    //                 });
-    //             }
-    //         });
-    //     } else {
-    //         console.log("*******************************", error)
-    //         res.status(400).json(error)
-    //     }
-    // });
     /**
      * train the data we have in mongodb to create a decision tree model
      */
     let BigML = new BigMLModel()
     const filename = 'callsData.csv'
     await createCSV(filename)
-    let modelInfo = await BigML.trainModel(filename)  // train the model
-    res.send({
-        answer: "OK",
-        model: modelInfo
-    })
+    await BigML.trainModel(filename)  // train the model
+    res.send({ answer: "OK" })
 }
 
 async function predict_cb(req, res, next) {
@@ -95,24 +72,21 @@ async function predict_cb(req, res, next) {
      * make a prediction using our current model (last trained)
      */
     let BigML = new BigMLModel()
-    // const prediction = await BigML.predict(req.body.features)
-    var features = {
-        customerId: 338,
-        period: "normal",
-        callTime: "2022-04-10T17:17:29.161Z",
-        callDuration: 53,
-        numOfCalls: 0,
-        internet: 0,
-        cableTV: 0,
-        cellular: 1,
-        age: 95,
-        gender: 0,
-        city: "Netanya"
-    }
-    const prediction = await BigML.predict(features)
-    console.log("pred answer: ", prediction)
-    // res.json({ answer: "OK",
-    //            prediction: prediction })
+    const features = req.body.features
+    // var features = {
+    //     customerId: 338,
+    //     period: "normal",
+    //     callTime: "2022-04-10T17:17:29.161Z",
+    //     callDuration: 53,
+    //     numOfCalls: 0,
+    //     internet: 0,
+    //     cableTV: 0,
+    //     cellular: 1,
+    //     age: 95,
+    //     gender: 0,
+    //     city: "Netanya"
+    // }
+    await BigML.predict(features, res)
 }
 
 module.exports = {

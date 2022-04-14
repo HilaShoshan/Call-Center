@@ -1,5 +1,7 @@
 var bigml = require('bigml')
 require('dotenv').config()
+const fs = require('fs')
+const fsPromises = require('fs').promises
 
 
 class BigML {
@@ -9,16 +11,18 @@ class BigML {
     }
 
     async trainModel(filename) {
-        this.source.create('./' + 'iris.csv', function (error, sourceInfo) {
+        this.source.create('./' + filename, function (error, sourceInfo) {
             if (!error && sourceInfo) {
                 var dataset = new bigml.Dataset()
                 dataset.create(sourceInfo, function (error, datasetInfo) {
                     if (!error && datasetInfo) {
                         var model = new bigml.Model()
                         model.create(datasetInfo, function (error, modelInfo) {
-                            // this.model = modelInfo
-                            console.log(modelInfo)
-                            return modelInfo
+                            try {
+                                return fsPromises.writeFile('MODELS_IDs.txt', modelInfo.resource)
+                            } catch (err) {
+                                throw err
+                            }
                         })
                     }
                 })
@@ -26,11 +30,27 @@ class BigML {
         })
     }
 
-    async predict(features) {
-        // predict using this.model
-        // returns the prediction
+    getModelID() {
+        return fs.promises.readFile("./MODELS_IDs.txt", "utf8")
+    }
+
+    async predict(features, res) {
+        var modelID = await this.getModelID()
         var prediction = new bigml.Prediction()
-        prediction.create(this.model, features)
+        prediction.create(modelID,
+            features,
+            { name: "my_prediction" },
+            true,
+            function (error, predictionInfo) {
+                if (!error && predictionInfo) {
+                    res.send({
+                        answer: "OK",
+                        prediction: predictionInfo.object.output,
+                        confidence: predictionInfo.object.prediction_path.confidence
+                    })
+                }
+            }
+        )
     }
 }
 
