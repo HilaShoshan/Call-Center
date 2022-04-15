@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- /.website title -->
+<title>BigML Analytics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<!-- CSS Files -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+<link href="css/animate.css" rel="stylesheet" media="screen">
+<link href="css/owl.theme.css" rel="stylesheet">
+<link href="css/owl.carousel.css" rel="stylesheet">
+ 
+<link href="css/styles.css" rel="stylesheet" media="screen">    
+
+<!-- Google Fonts --> 
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700' rel='stylesheet' type='text/css'>
+
+
+<!-- Font Awesome -->
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
+</head>
+  
+<body data-spy="scroll" data-target="#navbar-scroll">
+ 
+ <div id="top"></div>
+
+<!-- NAVIGATION -->
+<div id="menu">
+	<nav class="navbar-wrapper navbar-default" role="navigation">
+		<div class="container">
+			  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-themers">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand site-name" href="#top"><img src="images/logo.png" alt="logo"></a>
+			  </div>
+	 
+			  <div id="navbar-scroll" class="collapse navbar-collapse navbar-themers navbar-right">
+				<ul class="nav navbar-nav">
+					<li><a href="#contact">Predict</a></li>
+					<li><a href="#feature">Dashboard</a></li>
+				</ul>
+			  </div>
+		</div>
+	</nav>
+</div>
+
+<!-- /.parallax full screen background image -->
+<div class="fullscreen landing parallax banner" style="background-image:url('images/bg.jpg');" data-img-width="2000" data-img-height="1325" data-diff="100">
+	
+	<div class="overlay">
+		<div class="container">
+			<div class="row">
+				
+				
+				
+				<div class="col-md-6">
+				
+						<!-- /.main title -->
+						<h1 class="wow fadeInLeft">
+						App Landing Page 
+						</h1>
+
+					<!-- /.header paragraph -->
+					<div class="landing-text wow fadeInLeft">
+						<p>Lorem Ipsum is simply dummy text of the printing and type setting industry consectetur adipisicing elit, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing tempor incididunt!</p>
+					</div>				  
+
+					<!-- /.header button  -->
+					<div class="head-btn wow fadeInLeft">
+						<a href="#" onclick="train();" class="btn-primary app-store">
+						Train
+						</a>
+						<a href="#" class="btn-primary play-market">
+						<i class="fa fa-android"></i> <span> Google Play</span>
+						</a>
+					</div>
+	
+					 				
+
+				</div> 
+				
+				<!-- /.phone image -->
+				<div class="col-md-6">
+				<img src="images/header-phone.png" alt="phone" class="header-phone img-responsive wow fadeInRight">
+				</div>
+			</div>
+		</div> 
+	</div> 
+</div>
+   
+
+<!-- /.feature section -->
+<div id="feature">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1 col-sm-12 text-center feature-title">
+
+			<!-- /.feature title -->
+				<h2>Our Amazing beautiful features</h2>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+			</div>
+		</div>
+		<div class="row row-feat">
+			
+			<div class="col-md-12">
+
+				<!-- /.feature 1 -->
+				<div class="col-sm-4 feat-list">
+					<i class="fa fa-paint-brush wow fadeInUp"></i>
+					<div class="inner">
+						<h4>Fully Customizable</h4>
+						<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.
+						</p>
+					</div>
+				</div>
+			
+				<!-- /.feature 2 -->
+				<div class="col-sm-4 feat-list">
+					<i class="fa fa-rss wow fadeInUp" data-wow-delay="0.2s"></i>
+					<div class="inner">
+						<h4>Responsive Design</h4>
+						<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.</p>
+					</div>
+				</div>
+			
+				<!-- /.feature 3 -->
+				<div class="col-sm-4 feat-list"> 
+					<i class="fa fa-recycle wow fadeInUp" data-wow-delay="0.4s"></i>
+					<div class="inner">
+						<h4>Amazing Design</h4>
+						<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.</p>
+					</div>
+				</div>
+			
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+ 
+<!-- /.contact section -->
+<div id="contact">
+	<div class="contact">
+		 
+			<div class="container">
+				<div class="row contact-row">
+				
+					<!-- /.contact form -->
+					<div class="col-sm-7 contact-right">
+						<form method="POST"  onsubmit="predictSubmit(event)" id="contact-form" class="form-horizontal">
+							<div class="form-group">
+							<input type="text" name="Name" id="Name" class="form-control wow fadeInUp" placeholder="Name" required/>
+							</div>
+							<div class="form-group">
+							<input type="text" name="Email" id="Email" class="form-control wow fadeInUp" placeholder="Email" required/>
+							</div>
+							<input type="number" name="age" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
+						    </div>						
+							<input type="number" name="pwidth" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
+						    </div>						
+							<input type="number" name="swidth" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
+						    </div>						
+							<input type="number" name="slength" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
+						    </div>						
+							<div class="form-group">
+							<textarea name="Message" rows="20" cols="20" id="Message" class="form-control input-message wow fadeInUp"  placeholder="Message" required></textarea>
+							</div>
+							<div class="form-group">
+							<input type="submit" name="submit" value="Submit" class="btn btn-success wow fadeInUp" />
+							</div>
+						</form>		
+					</div>
+					
+					<!-- /.address and contact -->
+					<div class="col-sm-5 contact-left wow fadeInUp">
+						<h2>Contact Us</h2>
+							<ul class="ul-address">
+							<li>1234 Your Address goes here, City Name, Landmark</br>
+							Newyork 12000
+							</li>
+							<li>+1 (123) 456-7890</br>
+							+2 (123) 456-7890
+							</li>
+							<li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
+							<li><a href="#">www.yoursite.com</a></li>
+							</ul>	
+								
+					</div>
+					
+				 
+			</div>
+		</div>
+	</div>
+</div>
+ 
+	
+	<!-- /.javascript files -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/ekko-lightbox-min.js"></script>
+	<script src="js/api.js"></script>
+	<script type="text/javascript">
+	$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) { event.preventDefault(); $(this).ekkoLightbox(); }); 
+	</script>
+	<script>
+		new WOW().init();
+	</script>
+  </body>
+</html>

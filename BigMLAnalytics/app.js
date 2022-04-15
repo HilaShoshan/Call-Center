@@ -1,13 +1,17 @@
 const express = require('express')
+const path = require('path');
 const app = express()
 
 const KafkaModel = require('./models/kafka')
 const controller = require('./controllers/calls')  // call back function dending to kafka
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname,'public')))
 app.set('view engine','ejs')
+app.engine('html', require('ejs').renderFile)
+// app.set('views', __dirname + '/views')
+// app.engine('html', require('ejs').renderFile)
 
-const PORT = 3001
+const PORT = 3001 
 
 app.use(express.urlencoded({extended: true}))
 
@@ -17,18 +21,17 @@ async function init() {
   let kafka = new KafkaModel(controller.insertCall)
 }
 
-app.get('/', (req, res) => {
-  var production = {product: "icecream", quantity: 90}
-  res.render('pages/show', production)
-}) 
+app.get('/', function (req, res) {
+  res.render('pages/index')
+})
 
 app.get('/train', controller.trainModel_cb)
 
-app.get('/predict', controller.predict_cb)  // change to post!
+app.post('/predict', controller.predict_cb) 
 
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)
 })
 
-init()
+//init()

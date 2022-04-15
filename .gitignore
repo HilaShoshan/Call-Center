@@ -1,5 +1,6 @@
 node_modules
 example
+ben
 build
 npm-debug.log
 .nyc

@@ -2,6 +2,7 @@ const { Parser } = require('json2csv')
 const bigml = require('bigml')
 const fs = require('fs')
 const fsPromises = require('fs').promises
+const path = require('path')
 require('dotenv').config()
 
 const { mongoDbClient } = require('../models/mongodb')
@@ -49,7 +50,7 @@ async function createCSV(filename) {
     // save the data as a csv file
     try {
         // console.log('callsData.csv saved successfully.')
-        return fsPromises.writeFile(filename, csv)
+        return fsPromises.writeFile(path.join(__dirname, filename), csv)
     } catch (err) {
         console.error('Error occured while reading directory!', err)
         throw err
@@ -64,7 +65,7 @@ async function trainModel_cb(req, res, next) {
     const filename = 'callsData.csv'
     await createCSV(filename)
     await BigML.trainModel(filename)  // train the model
-    res.send({ answer: "OK" })
+    res.json({ answer: "OK" }) 
 }
 
 async function predict_cb(req, res, next) {

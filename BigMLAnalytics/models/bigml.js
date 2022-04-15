@@ -11,7 +11,7 @@ class BigML {
     }
 
     async trainModel(filename) {
-        this.source.create('./' + filename, function (error, sourceInfo) {
+        this.source.create('./' + 'iris.csv', function (error, sourceInfo) {
             if (!error && sourceInfo) {
                 var dataset = new bigml.Dataset()
                 dataset.create(sourceInfo, function (error, datasetInfo) {
@@ -35,6 +35,7 @@ class BigML {
     }
 
     async predict(features, res) {
+        console.log("predict features: ", features)
         var modelID = await this.getModelID()
         var prediction = new bigml.Prediction()
         prediction.create(modelID,
