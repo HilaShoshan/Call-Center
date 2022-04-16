@@ -11,6 +11,8 @@ app.use(express.json())
 
 app.get('/:id', Handlers.getId_cb)
 
+app.post('/increaseNumOfCalls', Handlers.increaseCalls_cb)
+
 app.post('/addCustomer', Handlers.addCustomer_cb)
 
 app.post('/sendCall', Handlers.sendCall_cb)

@@ -24,6 +24,19 @@ async function getId_cb(req, res, next) {
     res.json(data)
 }
 
+async function increaseCalls_cb(req, res, next) {
+    /**
+     * get the customer data by id
+     */
+    const answer = await db.increaseCall(req.body.id)
+    if (answer) {
+        res.json({ answer: "OK" })
+    }
+    else {
+        res.json({ answer: "FAILED" })
+    }
+}
+
 async function addCustomer_cb(req, res, next) {
     /**
    * add a new customer record to the dataset
@@ -65,6 +78,7 @@ async function deleteCustomer_cb(req, res, next) {
 
 module.exports = {
     getId_cb,
+    increaseCalls_cb,
     addCustomer_cb,
     sendCall_cb,
     deleteCustomer_cb

@@ -66,21 +66,18 @@
 				
 						<!-- /.main title -->
 						<h1 class="wow fadeInLeft">
-						App Landing Page 
+						BigML Analytics
 						</h1>
 
 					<!-- /.header paragraph -->
 					<div class="landing-text wow fadeInLeft">
-						<p>Lorem Ipsum is simply dummy text of the printing and type setting industry consectetur adipisicing elit, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing tempor incididunt!</p>
+						<p>Click on "Train" button to train a machine learning model. Then, on "Predict" you can enter a data for a new call, and get the model's prediction about what will be the topic of this call.</p>
 					</div>				  
 
 					<!-- /.header button  -->
 					<div class="head-btn wow fadeInLeft">
 						<a href="#" onclick="train();" class="btn-primary app-store">
 						Train
-						</a>
-						<a href="#" class="btn-primary play-market">
-						<i class="fa fa-android"></i> <span> Google Play</span>
 						</a>
 					</div>
 	
@@ -154,50 +151,45 @@
 		 
 			<div class="container">
 				<div class="row contact-row">
-				
+					<p>Enter a new call's data to predict it's topic:</p>
 					<!-- /.contact form -->
 					<div class="col-sm-7 contact-right">
 						<form method="POST"  onsubmit="predictSubmit(event)" id="contact-form" class="form-horizontal">
 							<div class="form-group">
-							<input type="text" name="Name" id="Name" class="form-control wow fadeInUp" placeholder="Name" required/>
+							<input type="text" name="period" id="Email" class="form-control wow fadeInUp" placeholder="Call Period [holidays / summer vacations / normal]" required/>
 							</div>
 							<div class="form-group">
-							<input type="text" name="Email" id="Email" class="form-control wow fadeInUp" placeholder="Email" required/>
-							</div>
-							<input type="number" name="age" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
-						    </div>						
-							<input type="number" name="pwidth" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
-						    </div>						
-							<input type="number" name="swidth" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
-						    </div>						
-							<input type="number" name="slength" id="Email" class="form-control wow fadeInUp" placeholder="Age" required/>
-						    </div>						
+							<input type="datetime-local" name="callTime" id="Email" class="form-control wow fadeInUp" placeholder="Call Time" required/>
+						    </div>										
 							<div class="form-group">
-							<textarea name="Message" rows="20" cols="20" id="Message" class="form-control input-message wow fadeInUp"  placeholder="Message" required></textarea>
+							<input type="number" name="numOfCalls" id="Name" class="form-control wow fadeInUp" placeholder="Number of calls in the last month" required/>
+							</div>
+							<div class="form-group">
+							<input type="checkbox" id="Name" name="internet" value="internet">	
+							<label for="internet">The customer is interested in internet</label><br>
+							</div>
+							<div class="form-group">
+							<input type="checkbox" id="Name" name="cableTV" value="cableTV">
+							<label for="cableTV">The customer is interested in cable TV</label><br>
+							</div>
+							<div class="form-group">
+							<input type="checkbox" id="Name" name="cellular" value="cellular">
+							<label for="cellular">The customer is interested in cellular</label>
+							</div>
+							<div class="form-group">
+							<input type="range" name="age" id="Name" min="14" max="120" class="form-control wow fadeInUp" placeholder="Customer Age" required/>
+							</div>
+							<div class="form-group">
+							<input type="range" name="gender" id="Name" min="0" max="1" class="form-control wow fadeInUp" placeholder="Customer Gender [0=male, 1=female]" required/>
+							</div>
+							<div class="form-group">
+							<input type="text" name="city" id="Email" class="form-control wow fadeInUp" placeholder="Customer City" required/>
 							</div>
 							<div class="form-group">
 							<input type="submit" name="submit" value="Submit" class="btn btn-success wow fadeInUp" />
 							</div>
 						</form>		
 					</div>
-					
-					<!-- /.address and contact -->
-					<div class="col-sm-5 contact-left wow fadeInUp">
-						<h2>Contact Us</h2>
-							<ul class="ul-address">
-							<li>1234 Your Address goes here, City Name, Landmark</br>
-							Newyork 12000
-							</li>
-							<li>+1 (123) 456-7890</br>
-							+2 (123) 456-7890
-							</li>
-							<li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-							<li><a href="#">www.yoursite.com</a></li>
-							</ul>	
-								
-					</div>
-					
-				 
 			</div>
 		</div>
 	</div>

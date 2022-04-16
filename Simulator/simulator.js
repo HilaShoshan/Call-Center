@@ -79,20 +79,19 @@ class CallsSimulator {
         return topics[utils.getRndInteger(0,topics.length-1)]
     }
 
-    createCallJSON(customerId, period, callTime, callDuration, numOfCalls, internet, cableTV, cellular, topic, age, gender, city) {
+    createCallJSON(customerId, period, callTime, numOfCalls, internet, cableTV, cellular, age, gender, city, topic) {
         var callObj = {}
         callObj.customerId = customerId
         callObj.period = period
         callObj.callTime = callTime
-        callObj.callDuration = callDuration
         callObj.numOfCalls = numOfCalls
         callObj.internet = internet
         callObj.cableTV = cableTV
         callObj.cellular = cellular
-        callObj.topic = topic
         callObj.age = age
         callObj.gender = gender
         callObj.city = city
+        callObj.topic = topic
         return callObj
     }
 
@@ -101,7 +100,6 @@ class CallsSimulator {
         var callTime = new Date()
         var period = periods[utils.getRndInteger(0, periods.length - 1)]
         const {internet, cableTV, cellular} = this.getCallProduct()
-        var callDuration = utils.getRndInteger(1,70)  // random call duration in minutes
         if (!exists) {  // this is a new customer (that wants to join)
             var dateOfBirth = this.getRndBirthday()
             var birthday = utils.dateConvert(dateOfBirth.toLocaleString().split(", ")[0])  // in a format we can enter to MySQL table
@@ -129,7 +127,9 @@ class CallsSimulator {
                 await ApiService.delete(HOST + '/' + customerId)  // delete the customer from the db
             }
         }
-        const callrecord = this.createCallJSON(customerId, period, callTime, callDuration, numOfCalls, internet, cableTV, cellular, topic, age, gender, city)
+        // increase customer's num of calls in the customer db
+        await ApiService.post(HOST + '/increaseNumOfCalls', { id: customerId })
+        const callrecord = this.createCallJSON(customerId, period, callTime, numOfCalls, internet, cableTV, cellular, age, gender, city, topic)
         return callrecord
     }
 }

@@ -36,6 +36,14 @@ class MySQL {
         return res[0]
     }
 
+    async increaseCall(id) {
+        const res = await this.doQuery("UPDATE customerdata SET NumCalls = NumCalls + 1 WHERE CustomerID = " + id)
+        if (res.affectedRows == 1) {
+            return true
+        }
+        return false
+    }
+
     async addCustomer(customerRecord) {
         // console.log("record: ", customerRecord)
         const res = await this.doQuery("INSERT INTO customerdata \

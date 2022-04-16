@@ -1,5 +1,5 @@
 const express = require('express')
-const path = require('path');
+const path = require('path')
 const app = express()
 
 const KafkaModel = require('./models/kafka')
@@ -8,8 +8,6 @@ const controller = require('./controllers/calls')  // call back function dending
 app.use(express.static(path.join(__dirname,'public')))
 app.set('view engine','ejs')
 app.engine('html', require('ejs').renderFile)
-// app.set('views', __dirname + '/views')
-// app.engine('html', require('ejs').renderFile)
 
 const PORT = 3001 
 
@@ -34,4 +32,4 @@ app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)
 })
 
-//init()
+init()

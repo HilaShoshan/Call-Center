@@ -17,7 +17,8 @@ async function sendCallRecord() {
     /** res is a JSON in form:
      * 
      * If not exists: { exists: false }
-     * ELSE: {
+     * ELSE (example): 
+            {
                 exists: true,
                 customerData: {
                     CustomerID: 1111,

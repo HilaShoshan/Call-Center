@@ -11,12 +11,12 @@ class BigML {
     }
 
     async trainModel(filename) {
-        this.source.create('./' + 'iris.csv', function (error, sourceInfo) {
+        this.source.create('./' + filename, function (error, sourceInfo) {
             if (!error && sourceInfo) {
                 var dataset = new bigml.Dataset()
                 dataset.create(sourceInfo, function (error, datasetInfo) {
                     if (!error && datasetInfo) {
-                        var model = new bigml.Model()
+                        var model = new bigml.Model(objective_field="topic")
                         model.create(datasetInfo, function (error, modelInfo) {
                             try {
                                 return fsPromises.writeFile('MODELS_IDs.txt', modelInfo.resource)
