@@ -49,8 +49,8 @@ async function createCSV(filename) {
     const csv = await convertToCSV(data)
     // save the data as a csv file
     try {
-        // console.log('callsData.csv saved successfully.')
-        return fsPromises.writeFile(path.join(__dirname, filename), csv)
+        console.log('callsData.csv saved successfully.')
+        return fsPromises.writeFile(path.join(__dirname, '..', filename), csv)
     } catch (err) {
         console.error('Error occured while reading directory!', err)
         throw err
@@ -75,19 +75,7 @@ async function predict_cb(req, res, next) {
     let BigML = new BigMLModel()
     const features = req.body.features
     console.log("features: ", features)
-    // var features = {
-    //     customerId: 338,
-    //     period: "normal",
-    //     callTime: "2022-04-10T17:17:29.161Z",
-    //     numOfCalls: 0,
-    //     internet: 0,
-    //     cableTV: 0,
-    //     cellular: 1,
-    //     age: 95,
-    //     gender: 0,
-    //     city: "Netanya"
-    // }
-    // await BigML.predict(features, res)
+    await BigML.predict(features, res)
 }
 
 module.exports = {

@@ -23,6 +23,16 @@ function getBoolean(form_value) {
     }
 }
 
+function getGender(form_value) {
+    if (form_value == "male") {
+        return 0
+    }
+    else if (form_value == "female") {
+        return 1
+    }
+    return -1
+}
+
 async function predictSubmit(event) {
     event.preventDefault()
     const form = new FormData(event.target)
@@ -35,14 +45,14 @@ async function predictSubmit(event) {
         body: JSON.stringify({
             features: {
                 period: form.get("periods"),
-                callTime: form.get("callTime"),
-                numOfCalls: form.get("numOfCalls"),
+                callTime: form.get("callTime") + ":00.001Z",
+                numOfCalls: parseInt(form.get("numOfCalls")),
                 internet: getBoolean(form.get("internet")),
                 cableTV: getBoolean(form.get("cableTV")),
                 cellular: getBoolean(form.get("cellular")),
-                age: form.get("age"),
-                gender: form.get("gender"),
-                city: form.get("city")
+                age: parseInt(form.get("age")),
+                gender: getGender(form.get("genders")),
+                city: form.get("cities")
             }
         })
     })

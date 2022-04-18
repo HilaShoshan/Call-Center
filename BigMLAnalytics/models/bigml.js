@@ -16,7 +16,7 @@ class BigML {
                 var dataset = new bigml.Dataset()
                 dataset.create(sourceInfo, function (error, datasetInfo) {
                     if (!error && datasetInfo) {
-                        var model = new bigml.Model(objective_field="topic")
+                        var model = new bigml.Model()
                         model.create(datasetInfo, function (error, modelInfo) {
                             try {
                                 return fsPromises.writeFile('MODELS_IDs.txt', modelInfo.resource)
