@@ -74,11 +74,11 @@ async function predict_cb(req, res, next) {
      */
     let BigML = new BigMLModel()
     const features = req.body.features
+    console.log("features: ", features)
     // var features = {
     //     customerId: 338,
     //     period: "normal",
     //     callTime: "2022-04-10T17:17:29.161Z",
-    //     callDuration: 53,
     //     numOfCalls: 0,
     //     internet: 0,
     //     cableTV: 0,
@@ -87,7 +87,7 @@ async function predict_cb(req, res, next) {
     //     gender: 0,
     //     city: "Netanya"
     // }
-    await BigML.predict(features, res)
+    // await BigML.predict(features, res)
 }
 
 module.exports = {

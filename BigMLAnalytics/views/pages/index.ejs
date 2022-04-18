@@ -1,215 +1,262 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<!-- /.website title -->
-<title>BigML Analytics</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- /.website title -->
+	<title>BigML Analytics</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<!-- CSS Files -->
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
-<link href="css/animate.css" rel="stylesheet" media="screen">
-<link href="css/owl.theme.css" rel="stylesheet">
-<link href="css/owl.carousel.css" rel="stylesheet">
- 
-<link href="css/styles.css" rel="stylesheet" media="screen">    
+	<!-- CSS Files -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet" media="screen">
+	<link href="css/owl.theme.css" rel="stylesheet">
+	<link href="css/owl.carousel.css" rel="stylesheet">
 
-<!-- Google Fonts --> 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700' rel='stylesheet' type='text/css'>
+	<link href="css/styles.css" rel="stylesheet" media="screen">
+
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Alegreya+Sans:100,300,400,700' rel='stylesheet' type='text/css'>
 
 
-<!-- Font Awesome -->
-<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> 
+	<!-- Font Awesome -->
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<style>
+		input[type="datetime-local"]:before {
+			content: attr(placeholder) !important;
+			color: #aaa;
+			margin-right: 0.5em;
+		}
+
+		input[type="datetime-local"]:focus:before,
+		input[type="datetime-local"]:valid:before {
+			content: "";
+		}
+	</style>
 </head>
-  
+
 <body data-spy="scroll" data-target="#navbar-scroll">
- 
- <div id="top"></div>
 
-<!-- NAVIGATION -->
-<div id="menu">
-	<nav class="navbar-wrapper navbar-default" role="navigation">
-		<div class="container">
-			  <div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-themers">
-				  <span class="sr-only">Toggle navigation</span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand site-name" href="#top"><img src="images/logo.png" alt="logo"></a>
-			  </div>
-	 
-			  <div id="navbar-scroll" class="collapse navbar-collapse navbar-themers navbar-right">
-				<ul class="nav navbar-nav">
-					<li><a href="#contact">Predict</a></li>
-					<li><a href="#feature">Dashboard</a></li>
-				</ul>
-			  </div>
-		</div>
-	</nav>
-</div>
+	<div id="top"></div>
 
-<!-- /.parallax full screen background image -->
-<div class="fullscreen landing parallax banner" style="background-image:url('images/bg.jpg');" data-img-width="2000" data-img-height="1325" data-diff="100">
-	
-	<div class="overlay">
-		<div class="container">
-			<div class="row">
-				
-				
-				
-				<div class="col-md-6">
-				
+	<!-- NAVIGATION -->
+	<div id="menu">
+		<nav class="navbar-wrapper navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-themers">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand site-name" href="#top"><img src="images/logo.png" alt="logo"></a>
+				</div>
+
+				<div id="navbar-scroll" class="collapse navbar-collapse navbar-themers navbar-right">
+					<ul class="nav navbar-nav">
+						<li><a href="#contact">Predict</a></li>
+						<li><a href="#feature">Dashboard</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<!-- /.parallax full screen background image -->
+	<div class="fullscreen landing parallax banner" style="background-image:url('images/bg.jpg');" data-img-width="2000"
+		data-img-height="1325" data-diff="100">
+
+		<div class="overlay">
+			<div class="container">
+				<div class="row">
+
+
+
+					<div class="col-md-6">
+
 						<!-- /.main title -->
 						<h1 class="wow fadeInLeft">
-						BigML Analytics
+							BigML Analytics
 						</h1>
 
-					<!-- /.header paragraph -->
-					<div class="landing-text wow fadeInLeft">
-						<p>Click on "Train" button to train a machine learning model. Then, on "Predict" you can enter a data for a new call, and get the model's prediction about what will be the topic of this call.</p>
-					</div>				  
+						<!-- /.header paragraph -->
+						<div class="landing-text wow fadeInLeft">
+							<p>Click on "Train" button to train a machine learning model. Then, on "Predict" you can
+								enter a data for a new call, and get the model's prediction about what will be the topic
+								of this call.</p>
+						</div>
 
-					<!-- /.header button  -->
-					<div class="head-btn wow fadeInLeft">
-						<a href="#" onclick="train();" class="btn-primary app-store">
-						Train
-						</a>
+						<!-- /.header button  -->
+						<div class="head-btn wow fadeInLeft">
+							<a href="#" onclick="train();" class="btn-primary app-store">
+								Train
+							</a>
+						</div>
+
+
+
 					</div>
-	
-					 				
 
-				</div> 
-				
-				<!-- /.phone image -->
-				<div class="col-md-6">
-				<img src="images/header-phone.png" alt="phone" class="header-phone img-responsive wow fadeInRight">
-				</div>
-			</div>
-		</div> 
-	</div> 
-</div>
-   
-
-<!-- /.feature section -->
-<div id="feature">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-10 col-md-offset-1 col-sm-12 text-center feature-title">
-
-			<!-- /.feature title -->
-				<h2>Our Amazing beautiful features</h2>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-			</div>
-		</div>
-		<div class="row row-feat">
-			
-			<div class="col-md-12">
-
-				<!-- /.feature 1 -->
-				<div class="col-sm-4 feat-list">
-					<i class="fa fa-paint-brush wow fadeInUp"></i>
-					<div class="inner">
-						<h4>Fully Customizable</h4>
-						<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.
-						</p>
+					<!-- /.phone image -->
+					<div class="col-md-6">
+						<img src="images/header-phone.png" alt="phone"
+							class="header-phone img-responsive wow fadeInRight">
 					</div>
 				</div>
-			
-				<!-- /.feature 2 -->
-				<div class="col-sm-4 feat-list">
-					<i class="fa fa-rss wow fadeInUp" data-wow-delay="0.2s"></i>
-					<div class="inner">
-						<h4>Responsive Design</h4>
-						<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.</p>
-					</div>
-				</div>
-			
-				<!-- /.feature 3 -->
-				<div class="col-sm-4 feat-list"> 
-					<i class="fa fa-recycle wow fadeInUp" data-wow-delay="0.4s"></i>
-					<div class="inner">
-						<h4>Amazing Design</h4>
-						<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.</p>
-					</div>
-				</div>
-			
-				
 			</div>
 		</div>
 	</div>
-</div>
 
- 
-<!-- /.contact section -->
-<div id="contact">
-	<div class="contact">
-		 
+	<!-- /.contact section -->
+	<div id="contact">
+		<div class="contact">
+
 			<div class="container">
 				<div class="row contact-row">
 					<p>Enter a new call's data to predict it's topic:</p>
 					<!-- /.contact form -->
 					<div class="col-sm-7 contact-right">
-						<form method="POST"  onsubmit="predictSubmit(event)" id="contact-form" class="form-horizontal">
+						<form onsubmit="predictSubmit(event)" id="contact-form" class="form-horizontal">
 							<div class="form-group">
-							<input type="text" name="period" id="Email" class="form-control wow fadeInUp" placeholder="Call Period [holidays / summer vacations / normal]" required/>
+								<label for="periods">Choose a period:</label>
+								<select name="periods" required>
+									<option value="holidays">Holidays</option>
+									<option value="summer vacations">Summer Vacations</option>
+									<option value="normal">Normal</option>
+								</select>
 							</div>
 							<div class="form-group">
-							<input type="datetime-local" name="callTime" id="Email" class="form-control wow fadeInUp" placeholder="Call Time" required/>
-						    </div>										
-							<div class="form-group">
-							<input type="number" name="numOfCalls" id="Name" class="form-control wow fadeInUp" placeholder="Number of calls in the last month" required/>
+								<input type="datetime-local" name="callTime" id="Email"
+									class="form-control wow fadeInUp" placeholder="Call Time" required />
 							</div>
 							<div class="form-group">
-							<input type="checkbox" id="Name" name="internet" value="internet">	
-							<label for="internet">The customer is interested in internet</label><br>
+								<input type="number" name="numOfCalls" id="Name" class="form-control wow fadeInUp"
+									placeholder="Number of calls in the last month" required />
 							</div>
 							<div class="form-group">
-							<input type="checkbox" id="Name" name="cableTV" value="cableTV">
-							<label for="cableTV">The customer is interested in cable TV</label><br>
+								<input type="checkbox" id="Name" name="internet" value="internet">
+								<label for="internet">The customer is interested in internet</label><br>
 							</div>
 							<div class="form-group">
-							<input type="checkbox" id="Name" name="cellular" value="cellular">
-							<label for="cellular">The customer is interested in cellular</label>
+								<input type="checkbox" id="Name" name="cableTV" value="cableTV">
+								<label for="cableTV">The customer is interested in cable TV</label><br>
 							</div>
 							<div class="form-group">
-							<input type="range" name="age" id="Name" min="14" max="120" class="form-control wow fadeInUp" placeholder="Customer Age" required/>
+								<input type="checkbox" id="Name" name="cellular" value="cellular">
+								<label for="cellular">The customer is interested in cellular</label>
 							</div>
 							<div class="form-group">
-							<input type="range" name="gender" id="Name" min="0" max="1" class="form-control wow fadeInUp" placeholder="Customer Gender [0=male, 1=female]" required/>
+								<input type="number" name="age" id="Name" min="14" max="120"
+									class="form-control wow fadeInUp" placeholder="Customer Age"/>
 							</div>
 							<div class="form-group">
-							<input type="text" name="city" id="Email" class="form-control wow fadeInUp" placeholder="Customer City" required/>
+								<label for="genders">Choose customer's gender:</label>
+								<select name="genders">
+									<option value="male">Male</option>
+									<option value="female">Female</option>
+								</select>
 							</div>
 							<div class="form-group">
-							<input type="submit" name="submit" value="Submit" class="btn btn-success wow fadeInUp" />
+								<label for="cities">Choose customer's city:</label>
+								<select name="cities">
+									<option value="Ariel">Ariel</option>
+									<option value="Jerusalem">Jerusalem</option>
+									<option value="Tel-Aviv">Tel-Aviv</option>
+									<option value="Haifa">Haifa</option>
+									<option value="Nahariya">Nahariya</option>
+									<option value="Petah-Tikva">Petah-Tikva</option>
+									<option value="Ashdod">Ashdod</option>
+									<option value="Netanya">Netanya</option>
+									<option value="Bnei-Brak">Bnei-Brak</option>
+									<option value="Holon">Holon</option>
+									<option value="Beersheba">Beersheba</option>
+								</select>
 							</div>
-						</form>		
+							<div class="form-group">
+								<input type="submit" name="submit" value="Submit"
+									class="btn btn-success wow fadeInUp" />
+							</div>
+						</form>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
- 
-	
+
+
+	<!-- /.feature section -->
+	<div id="feature">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1 col-sm-12 text-center feature-title">
+
+					<!-- /.feature title -->
+					<h2>Our Amazing beautiful features</h2>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+						the industry's standard dummy text ever since the 1500s.</p>
+				</div>
+			</div>
+			<div class="row row-feat">
+
+				<div class="col-md-12">
+
+					<!-- /.feature 1 -->
+					<div class="col-sm-4 feat-list">
+						<i class="fa fa-paint-brush wow fadeInUp"></i>
+						<div class="inner">
+							<h4>Fully Customizable</h4>
+							<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+								piece of classical Latin literature.
+							</p>
+						</div>
+					</div>
+
+					<!-- /.feature 2 -->
+					<div class="col-sm-4 feat-list">
+						<i class="fa fa-rss wow fadeInUp" data-wow-delay="0.2s"></i>
+						<div class="inner">
+							<h4>Responsive Design</h4>
+							<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+								piece of classical Latin literature.</p>
+						</div>
+					</div>
+
+					<!-- /.feature 3 -->
+					<div class="col-sm-4 feat-list">
+						<i class="fa fa-recycle wow fadeInUp" data-wow-delay="0.4s"></i>
+						<div class="inner">
+							<h4>Amazing Design</h4>
+							<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+								piece of classical Latin literature.</p>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- /.javascript files -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/jquery.sticky.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/jquery.sticky.js"></script>
 	<script src="js/wow.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/ekko-lightbox-min.js"></script>
 	<script src="js/api.js"></script>
 	<script type="text/javascript">
-	$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) { event.preventDefault(); $(this).ekkoLightbox(); }); 
+		$(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) { event.preventDefault(); $(this).ekkoLightbox(); }); 
 	</script>
 	<script>
 		new WOW().init();
 	</script>
-  </body>
+</body>
+
 </html>

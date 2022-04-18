@@ -60,8 +60,8 @@ function wait(ms) {
 async function asyncCall() {
     for (let i = 0; i < 1000; i++) {
         sendCallRecord()  // will be executed after delayInMilliseconds
-        await wait(10000); 
-        //delayInMilliseconds = utils.getRndInteger(1000, 180000)  // random delay between 1 second to 3 minutes
+        delayInMilliseconds = utils.getRndInteger(1000, 30000)  // random delay between 1 second to 30 seconds
+        await wait(delayInMilliseconds); 
     }
     // expected output: "resolved"
   }

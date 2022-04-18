@@ -14,11 +14,18 @@ function train() {
     });
 }
 
-function predictSubmit(event) {
-    console.last("event: ", event)
-    event.preventDefault();
-    const form = new FormData(event.target);
-    // const age = form.get("age");
+function getBoolean(form_value) {
+    if (form_value == null) {
+        return 0
+    }
+    else {
+        return 1
+    }
+}
+
+async function predictSubmit(event) {
+    event.preventDefault()
+    const form = new FormData(event.target)
     fetch('http://localhost:3001/predict', {
         method: 'POST',
         headers: {
@@ -27,12 +34,12 @@ function predictSubmit(event) {
         },
         body: JSON.stringify({
             features: {
-                period: form.get("period"),
+                period: form.get("periods"),
                 callTime: form.get("callTime"),
                 numOfCalls: form.get("numOfCalls"),
-                internet: form.get("internet"),
-                cableTV: form.get("cableTV"),
-                cellular: form.get("cellular"),
+                internet: getBoolean(form.get("internet")),
+                cableTV: getBoolean(form.get("cableTV")),
+                cellular: getBoolean(form.get("cellular")),
                 age: form.get("age"),
                 gender: form.get("gender"),
                 city: form.get("city")
