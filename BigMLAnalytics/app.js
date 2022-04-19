@@ -3,7 +3,7 @@ const path = require('path')
 const app = express()
 
 const KafkaModel = require('./models/kafka')
-const controller = require('./controllers/calls')  // call back function dending to kafka
+const controller = require('./controllers/calls')  // call back functions
 
 app.use(express.static(path.join(__dirname,'public')))
 app.set('view engine','ejs')
@@ -26,6 +26,8 @@ app.get('/', function (req, res) {
 app.get('/train', controller.trainModel_cb)
 
 app.post('/predict', controller.predict_cb) 
+
+// app.post('/confusion_matrix', controller.UpdateMatrix_cb)
 
 
 app.listen(PORT, () => {
