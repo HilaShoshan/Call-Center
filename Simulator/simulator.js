@@ -98,6 +98,7 @@ class CallsSimulator {
     async getCallRecord(customerId, exists, customerData) {
         var customerrecord = undefined
         var callTime = new Date()
+        callTime.setTime(callTime.getTime() + 3 * 60 * 60 * 1000)
         var period = periods[utils.getRndInteger(0, periods.length - 1)]
         const {internet, cableTV, cellular} = this.getCallProduct()
         if (!exists) {  // this is a new customer (that wants to join)
