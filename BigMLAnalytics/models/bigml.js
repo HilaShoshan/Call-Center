@@ -11,7 +11,7 @@ class BigML {
         this.source = new bigml.Source()
     }
 
-    trainModel(filename, res) {
+    trainModel(filename) {
         this.source.create('./' + filename, function (error, sourceInfo) {
             if (!error && sourceInfo) {
                 var dataset = new bigml.Dataset()
@@ -22,9 +22,7 @@ class BigML {
                             try {
                                 await fsPromises.writeFile(path.join(__dirname, 'IDs', 'DATASETS_IDs.txt'), modelInfo.object.dataset)
                                 await fsPromises.writeFile(path.join(__dirname, 'IDs', 'MODELS_IDs.txt'), modelInfo.resource)
-                                res.json({ 'train answer': 'OK' })
                             } catch (err) {
-                                res.json({ 'train answer': 'ERR' })
                                 throw err
                             }
                         })
@@ -34,21 +32,42 @@ class BigML {
         })
     }
 
+    buildConfusionMatrixObj(confusion_matrix) {
+        console.log("hereeeeeeeeeeeeeeeeeeeee")
+        // console.log("************ on build obj, confusion matrix is: ", confusion_matrix)
+        // var obj = {
+        //     c00 : confusion_matrix[0][0]
+        // }
+        // console.log("objjjjjjjjjjjjj: ", obj)
+        // return obj
+        return 1
+    }
+
     async evaluateModel(res) {
         const modelID = await this.getModelID()
         const datasetID = await this.getDatasetID()
         var evaluation = new bigml.Evaluation()
         evaluation.create(modelID,
             datasetID,
-            { name: "my evaluation" }, 
+            { name: "my evaluation" },
             true,
             function (error, evaluationInfo) {
                 if (!error && evaluationInfo) {
-                    console.log(evaluationInfo)
-                    res.json({ 'evaluation answer': 'OK' })
+                    var myeval = new bigml.Evaluation()
+                    myeval.get(evaluationInfo.resource,
+                        true,
+                        async function (error, resource) {
+                            if (!error && resource) {
+                                res.json({
+                                    'evaluation answer': 'OK',
+                                    confusion_matrix: resource.object.result.model.confusion_matrix  // for updating the confusion matrix in pages/index
+                                })
+                            }
+                        })
                 }
                 else {
                     console.log(error)
+                    res.json({ 'evaluation answer': 'ERR' })
                 }
             })
     }
@@ -74,14 +93,15 @@ class BigML {
                     res.send({
                         answer: 'OK',
                         prediction: predictionInfo.object.output,
-                        confidence: predictionInfo.object.prediction_path.confidence
+                        confidence: predictionInfo.object.prediction_path.confidence,
+                        probabilities: predictionInfo.output.probabilities
                     })
                 }
             }
         )
     }
 
-    bigMLMap() {
+    /* bigMLMap() {
         if (map === null || map === undefined) {
             map = new Map()
             return map
@@ -101,7 +121,7 @@ class BigML {
             return table
         }
         return table
-    }
+    } */
 }
 
 module.exports = BigML

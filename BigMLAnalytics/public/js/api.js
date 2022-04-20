@@ -4,7 +4,24 @@ function train() {
     .then(response =>  response.json())
     .then(response => {
         // handle the response
-        console.log(response);
+        var confusion_matrix = response.confusion_matrix
+        console.log(confusion_matrix)
+		document.getElementById('c00').innerText = confusion_matrix[0][0]
+		document.getElementById('c01').innerText = confusion_matrix[0][1]
+		document.getElementById('c02').innerText = confusion_matrix[0][2]
+		document.getElementById('c03').innerText = confusion_matrix[0][3]
+		document.getElementById('c10').innerText = confusion_matrix[1][0]
+		document.getElementById('c11').innerText = confusion_matrix[1][1]
+		document.getElementById('c12').innerText = confusion_matrix[1][2]
+		document.getElementById('c13').innerText = confusion_matrix[1][3]
+		document.getElementById('c20').innerText = confusion_matrix[2][0]
+		document.getElementById('c21').innerText = confusion_matrix[2][1]
+		document.getElementById('c22').innerText = confusion_matrix[2][2]
+		document.getElementById('c23').innerText = confusion_matrix[2][3]
+		document.getElementById('c30').innerText = confusion_matrix[3][0]
+		document.getElementById('c31').innerText = confusion_matrix[3][1]
+		document.getElementById('c32').innerText = confusion_matrix[3][2]
+		document.getElementById('c33').innerText = confusion_matrix[3][3]
         // close spinner
     })
     .catch(error => {

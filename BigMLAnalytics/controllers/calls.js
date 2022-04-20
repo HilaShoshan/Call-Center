@@ -64,9 +64,8 @@ async function trainModel_cb(req, res, next) {
     let BigML = new BigMLModel()
     const filename = 'callsData.csv'
     await createCSV(filename)
-    await BigML.trainModel(filename, res)  // train the model
+    await BigML.trainModel(filename)  // train the model
     await BigML.evaluateModel(res)
-    // update confusion matrix and render the data to pages/index
 }
 
 async function predict_cb(req, res, next) {
@@ -79,15 +78,14 @@ async function predict_cb(req, res, next) {
     await BigML.predict(features, res)
 }
 
-function UpdateMatrix_cb(req, res, next) {
-    let BigML = new BigMLModel()
-    table_to_html = BigML.bigMLTable()
-    res.render("predictTable",{table_to_html : table_to_html})
-}
+// function UpdateMatrix_cb(req, res, next) {
+//     let BigML = new BigMLModel()
+//     table_to_html = BigML.bigMLTable()
+//     res.render("predictTable",{table_to_html : table_to_html})
+// }
 
 module.exports = {
     insertCall,
     trainModel_cb,
-    predict_cb,
-    UpdateMatrix_cb
+    predict_cb
 }
