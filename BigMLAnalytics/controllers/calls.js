@@ -28,6 +28,7 @@ async function getAllCalls() {
     let data = await db.findAll("calls")  // data is an array
     data.forEach(element => {
         element._id = element._id.toString()
+        delete element.customerId  // there is no need for learning
     })
     // console.log(data)
     await db.close()
@@ -64,7 +65,9 @@ async function trainModel_cb(req, res, next) {
     let BigML = new BigMLModel()
     const filename = 'callsData.csv'
     await createCSV(filename)
-    await BigML.trainModel(filename)  // train the model
+    var feature_importance = {}
+    await BigML.trainModel(filename, feature_importance)  // train the model
+    console.log("feature_importance: ", feature_importance)
     await BigML.evaluateModel(res)
 }
 
@@ -78,11 +81,6 @@ async function predict_cb(req, res, next) {
     await BigML.predict(features, res)
 }
 
-// function UpdateMatrix_cb(req, res, next) {
-//     let BigML = new BigMLModel()
-//     table_to_html = BigML.bigMLTable()
-//     res.render("predictTable",{table_to_html : table_to_html})
-// }
 
 module.exports = {
     insertCall,

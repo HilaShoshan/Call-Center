@@ -3,7 +3,7 @@ function train() {
     fetch("http://localhost:3001/train")
     .then(response =>  response.json())
     .then(response => {
-        // handle the response
+        // handle the response and update confusion matrix
         var confusion_matrix = response.confusion_matrix
         console.log(confusion_matrix)
 		document.getElementById('c00').innerText = confusion_matrix[0][0]
@@ -22,6 +22,12 @@ function train() {
 		document.getElementById('c31').innerText = confusion_matrix[3][1]
 		document.getElementById('c32').innerText = confusion_matrix[3][2]
 		document.getElementById('c33').innerText = confusion_matrix[3][3]
+
+        // update model performance evaluation
+        document.getElementById('accuracy').innerText = response.accuracy
+        document.getElementById('average_f_measure').innerText = response.average_f_measure
+        document.getElementById('average_precision').innerText = response.average_precision
+        document.getElementById('average_recall').innerText = response.average_recall
         // close spinner
     })
     .catch(error => {

@@ -11,7 +11,18 @@ class BigML {
         this.source = new bigml.Source()
     }
 
-    trainModel(filename) {
+    featuresDict(fields) {
+        console.log("fields: ", fields)
+        var dict = new Object()
+        // var keys = Object.keys(fields)
+        // keys.forEach((key, index) => {
+        //     dict[key] = fields[key].name
+        // })
+        // console.log("dict:\n", dict)
+        return dict
+    }
+
+    async trainModel(filename, answer) {
         this.source.create('./' + filename, function (error, sourceInfo) {
             if (!error && sourceInfo) {
                 var dataset = new bigml.Dataset()
@@ -25,22 +36,31 @@ class BigML {
                             } catch (err) {
                                 throw err
                             }
+                            var mymodel = new bigml.Model()
+                            mymodel.get(modelInfo.resource,
+                                true,
+                                async function (error, resource) {
+                                    if (!error && resource) {
+                                        // var dict = await this.featuresDict(resource.object.model.fields)
+                                        var fields = resource.object.model.fields
+                                        var dict = new Object()
+                                        var keys = Object.keys(fields)
+                                        keys.forEach((key, index) => {
+                                            dict[key] = fields[key].name
+                                        })
+                                        var importance = resource.object.model.importance
+                                        importance.forEach(element => {
+                                            var name = dict[element[0]]
+                                            answer[name] = element[1]
+                                        })
+                                        console.log("answer: ", answer)
+                                    }
+                                })
                         })
                     }
                 })
             }
         })
-    }
-
-    buildConfusionMatrixObj(confusion_matrix) {
-        console.log("hereeeeeeeeeeeeeeeeeeeee")
-        // console.log("************ on build obj, confusion matrix is: ", confusion_matrix)
-        // var obj = {
-        //     c00 : confusion_matrix[0][0]
-        // }
-        // console.log("objjjjjjjjjjjjj: ", obj)
-        // return obj
-        return 1
     }
 
     async evaluateModel(res) {
@@ -60,7 +80,11 @@ class BigML {
                             if (!error && resource) {
                                 res.json({
                                     'evaluation answer': 'OK',
-                                    confusion_matrix: resource.object.result.model.confusion_matrix  // for updating the confusion matrix in pages/index
+                                    confusion_matrix: resource.object.result.model.confusion_matrix,  // for updating the confusion matrix in pages/index
+                                    accuracy: resource.object.result.model.accuracy,
+                                    average_f_measure: resource.object.result.model.average_f_measure,
+                                    average_precision: resource.object.result.model.average_precision,
+                                    average_recall: resource.object.result.model.average_recall
                                 })
                             }
                         })
@@ -100,28 +124,6 @@ class BigML {
             }
         )
     }
-
-    /* bigMLMap() {
-        if (map === null || map === undefined) {
-            map = new Map()
-            return map
-        }
-        return map
-    }
-
-    bigMLTable() {
-        if (table === null || table === undefined) {
-            table =
-            {
-                'join': [0, 0, 0, 0],
-                'service': [0, 0, 0, 0],
-                'complaint': [0, 0, 0, 0],
-                'disconnect': [0, 0, 0, 0]
-            }
-            return table
-        }
-        return table
-    } */
 }
 
 module.exports = BigML
