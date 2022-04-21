@@ -14,7 +14,7 @@ module.exports = {
                 const avgWaitingTimeOfLast10Mins = _calcNew10MinAvg()
                 const socketIo= socketHandler.getSocket()
                 socketIo.emit("updateAvgOfLast10Mins", avgWaitingTimeOfLast10Mins)
-            }, 20 * 1000)
+            },  1000)
             console.log("updating every min - set")
         }).catch((err) => {throw Error(err)})
     },
