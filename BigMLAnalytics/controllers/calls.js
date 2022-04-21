@@ -65,9 +65,7 @@ async function trainModel_cb(req, res, next) {
     let BigML = new BigMLModel()
     const filename = 'callsData.csv'
     await createCSV(filename)
-    var feature_importance = {}
-    await BigML.trainModel(filename, feature_importance)  // train the model
-    console.log("feature_importance: ", feature_importance)
+    await BigML.trainModel(filename)  // train the model
     await BigML.evaluateModel(res)
 }
 

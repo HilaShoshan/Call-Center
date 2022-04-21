@@ -22,7 +22,7 @@ class BigML {
         return dict
     }
 
-    async trainModel(filename, answer) {
+    async trainModel(filename) {
         this.source.create('./' + filename, function (error, sourceInfo) {
             if (!error && sourceInfo) {
                 var dataset = new bigml.Dataset()
@@ -48,12 +48,17 @@ class BigML {
                                         keys.forEach((key, index) => {
                                             dict[key] = fields[key].name
                                         })
+                                        var answer = {}
                                         var importance = resource.object.model.importance
                                         importance.forEach(element => {
                                             var name = dict[element[0]]
                                             answer[name] = element[1]
                                         })
-                                        console.log("answer: ", answer)
+                                        try {
+                                            await fsPromises.writeFile(path.join(__dirname, 'IDs', 'IMPORTANCE.json'), JSON.stringify(answer))
+                                        } catch (err) {
+                                            throw err
+                                        }
                                     }
                                 })
                         })
@@ -78,6 +83,12 @@ class BigML {
                         true,
                         async function (error, resource) {
                             if (!error && resource) {
+                                // fs.promises.readFile(path.join(__dirname, 'IDs', 'IMPORTANCE.json'), function(err, data) {
+                                //     if(!err) {
+                                //         const users = JSON.parse(data);
+                                //         console.log(users); // Print users 
+                                //     }
+                                // });
                                 res.json({
                                     'evaluation answer': 'OK',
                                     confusion_matrix: resource.object.result.model.confusion_matrix,  // for updating the confusion matrix in pages/index
@@ -85,6 +96,9 @@ class BigML {
                                     average_f_measure: resource.object.result.model.average_f_measure,
                                     average_precision: resource.object.result.model.average_precision,
                                     average_recall: resource.object.result.model.average_recall
+                                    // importance: { 
+
+                                    // }
                                 })
                             }
                         })
