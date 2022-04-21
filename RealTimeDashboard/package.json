@@ -1,20 +1,20 @@
 {
-  "name": "realtimedashboard",
-  "version": "0.0.0",
-  "private": true,
+  "name": "redis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "ioredis": "^4.28.5",
-    "morgan": "~1.9.1",
+    "ejs": "^3.1.3",
+    "express": "^4.17.3",
+    "ioredis": "^5.0.4",
     "node-rdkafka": "^2.12.0",
-    "pug": "^3.0.2",
-    "redis": "^4.0.6",
+    "node-schedule": "^2.1.0",
     "socket.io": "^4.4.1"
   }
 }

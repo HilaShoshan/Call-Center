@@ -1,54 +1,40 @@
-const path = require('path');
-const http = require('http');
-
-const express = require('express');
-const redis = require('./models/redisClient');
-const kafkaConsumer = require('./models/kafkaConsumer');
-//const dashboardController = require('./controllers/dashboardController');
-
+const express = require("express");
 const app = express();
-const server = http.createServer(app);
-//const { Server } = require('socket.io');
-//const io = new Server(server);
-const PORT = 3002;
+const path = require("path");
+const router = require("./routes/routes");
+const kafkaHandler = require("./utils/kafkaConnector.js");
+const controllers = require("./controllers/controllers.js");
+const redisConnector = require("./utils/redisHandler.js");
+const setFlushingOnRedis = require("./utils/redisRester.js");
 
-//app.set('view engine', 'ejs');
-//app.set('views', 'views');
+const kafkaListenersSetter = require("./models/kafkaHandler");
 
-//app.use(express.static(path.join(__dirname, 'public')));
+const socketHandler = require("./utils/socketHandler");
 
-//app.get('/dashboard', dashboardController.renderDashboard);
-/*
-io.on('connection', socket => {
 
-    console.log('client connected');
-    
-    socket.on('disconnect', () => {
-      console.log('client disconnected');
-    });
-*/
-    // reciving data in json format
-kafkaConsumer.fetchData((err, reply) => {
-  if(err) console.log(err);
-  redis.storeData(reply)
-})
-/*
-    socket.on('AllSectionStats', () => {
-      dashboardController.AllSectionStats(socket, redis);
-    });
+app.set("view engine", "ejs");
+app.set("views", "views");
 
-    socket.on('SectionStat', sectionNum => {
-      dashboardController.SectionStats(socket, sectionNum, redis);
-    });
+app.use(express.static(path.join(__dirname, "public")));
 
-    socket.on('TrafficInfo', () => {
-      dashboardController.TrafficInfo(socket, redis);
-    });
-    
-  });
-*/
-server.listen(PORT, err => 
-  {
-    if (err) console.log('Error in server setup')
-    console.log('Server listening on Port');
-  })
+app.use(router);
+
+app.use("/", controllers.redirect);
+kafkaHandler.connectToKafka()
+    .then(() => {
+        redisConnector.connectRedis(() => {
+            
+            const hour = 0;
+            const min = 0;
+            setFlushingOnRedis(hour, min);
+            controllers.init();
+            kafkaListenersSetter();
+            const server = app.listen(4000);
+            console.log("connected to server");
+            socketHandler.init(server);
+            console.log("socket-serve")
+            socketHandler.configureConn();
+            
+        });
+    })
+    .catch(err => { throw err; });
