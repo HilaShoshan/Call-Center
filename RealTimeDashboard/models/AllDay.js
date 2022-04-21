@@ -26,27 +26,25 @@ module.exports = class AllDay {
                     hour = "" + (parseInt(hour) + 1);
             }
         }
+        //console.log("five-collec", _collection)
     }
     static recordCallInFiveMinSeg(callData){
-        const startTime = callData["callTime"]
+        const [,startTime] = callData["callTime"].split("T")
+    
         
-       
-        const totalTime = callData["totalTime"]
-        console.log("total--", totalTime)
-        
-        const endTime = callData["endTime"]
+        const [,endTime] = callData["endTime"].split("T")
 
         const [hourStart, minStart] = startTime.split(":");
-        const [hourEnd, minEnd] = endTime.split(":");
+       
         const indexToStart = (hourStart * 12) + (Math.floor(minStart / 5));
-        const indexToEnd = (hourEnd * 12) + (Math.floor(minEnd / 5));
+        
+       
+        
+        
+        _collection[indexToStart].setCounter(_collection[indexToStart].getCount() +1)
+        _collection[indexToStart].calcNewAvg(callData["waitingTime"])
 
-        for (let runningIndex = indexToStart; runningIndex <= indexToEnd; runningIndex++) {
-            _collection[runningIndex].setCounter(_collection[runningIndex].getCount() + 1);
-            _collection[runningIndex].calcNewAvg(callData["totalTime"]);
-        }
-
-        return JSON.parse(JSON.stringify(_collection.slice(indexToStart, indexToEnd + 1)));
+        return JSON.parse(JSON.stringify(_collection.slice(indexToStart, indexToStart + 1)));
     }
 
     static getDataFromCallDataCollection(callDataCollection) {

@@ -1,20 +1,23 @@
 const CallDataCollection = require("../models/CallDataCollection");
 const socketHandler = require("../utils/socketHandler");
 const AllDay = require("../models/AllDay");
+const path = require('path');
 
+let _collection 
 module.exports = {
     init: () => {
         CallDataCollection.init()
+        _collection=[]
         
-        AllDay.init()
         CallDataCollection.getCallsFromRedis().then(()=>{
-           
+            AllDay.init()
             AllDay.getDataFromCallDataCollection(CallDataCollection.getCollection())
             setInterval(()=>{
                 const avgWaitingTimeOfLast10Mins = _calcNew10MinAvg()
                 const socketIo= socketHandler.getSocket()
                 socketIo.emit("updateAvgOfLast10Mins", avgWaitingTimeOfLast10Mins)
             },  1000)
+            
             console.log("updating every min - set")
         }).catch((err) => {throw Error(err)})
     },
@@ -42,6 +45,7 @@ module.exports = {
         socketIo.emit("updateTopicTable",{
             topic: nCallData["topic"]
         });
+        
         const relCallsOfAllDay = AllDay.recordCallInFiveMinSeg(nCallData)
         socketIo.emit("update5min",relCallsOfAllDay)
 
@@ -52,7 +56,11 @@ module.exports = {
     },
     redirect: (req, res, next) => {
         res.redirect("dashboard")
-    },
+    }
+    /*,
+    renderDashboard: (req, res) => {
+        res.render(path.join(__dirname, '../views/dashboard.ejs'));
+    }*/
 };
 
 const _createConfigObjForUi = ()=>{

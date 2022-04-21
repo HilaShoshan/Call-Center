@@ -1,6 +1,7 @@
 module.exports = class FiveMinutes{
 
     constructor(hour){
+        
         this.hour = hour
         this.callCount = 0
         this.allWaitingTimes = []
@@ -22,9 +23,10 @@ module.exports = class FiveMinutes{
     }
     calcNewAvg(callTime){
         this.allWaitingTimes.push(callTime)
+        
         const sum = this.allWaitingTimes.reduce((accumulator, currentValue) => accumulator +currentValue , 0)
         this.avgWaitingTime = sum / this.callCount
-        console.log("calcNewAvg",this.avgWaitingTime )
+        //console.log("calcNewAvg",this.avgWaitingTime )
         return this.avgWaitingTime
     }
 
