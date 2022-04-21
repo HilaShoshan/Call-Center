@@ -52,7 +52,7 @@ class BigML {
                                         var importance = resource.object.model.importance
                                         importance.forEach(element => {
                                             var name = dict[element[0]]
-                                            answer[name] = element[1]
+                                            answer[name] = element[1]*100
                                         })
                                         try {
                                             await fsPromises.writeFile(path.join(__dirname, 'IDs', 'IMPORTANCE.json'), JSON.stringify(answer))
@@ -83,22 +83,18 @@ class BigML {
                         true,
                         async function (error, resource) {
                             if (!error && resource) {
-                                // fs.promises.readFile(path.join(__dirname, 'IDs', 'IMPORTANCE.json'), function(err, data) {
-                                //     if(!err) {
-                                //         const users = JSON.parse(data);
-                                //         console.log(users); // Print users 
-                                //     }
-                                // });
-                                res.json({
-                                    'evaluation answer': 'OK',
-                                    confusion_matrix: resource.object.result.model.confusion_matrix,  // for updating the confusion matrix in pages/index
-                                    accuracy: resource.object.result.model.accuracy,
-                                    average_f_measure: resource.object.result.model.average_f_measure,
-                                    average_precision: resource.object.result.model.average_precision,
-                                    average_recall: resource.object.result.model.average_recall
-                                    // importance: { 
-
-                                    // }
+                                fs.readFile(path.join(__dirname, 'IDs', 'IMPORTANCE.json'), function(err, data) {
+                                    const importance = JSON.parse(data)
+                                    // console.log("importance: ", importance)
+                                    res.json({
+                                        'evaluation answer': 'OK',
+                                        confusion_matrix: resource.object.result.model.confusion_matrix,  // for updating the confusion matrix in pages/index
+                                        accuracy: resource.object.result.model.accuracy,
+                                        average_f_measure: resource.object.result.model.average_f_measure,
+                                        average_precision: resource.object.result.model.average_precision,
+                                        average_recall: resource.object.result.model.average_recall,
+                                        importance: importance 
+                                    })
                                 })
                             }
                         })

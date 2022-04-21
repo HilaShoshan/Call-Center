@@ -24,6 +24,8 @@
 	<!-- Font Awesome -->
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>	
+
 </head>
 
 <body data-spy="scroll" data-target="#navbar-scroll">
@@ -84,9 +86,6 @@
 								Train
 							</a>
 						</div>
-
-
-
 					</div>
 
 					<!-- /.phone image -->
@@ -183,10 +182,10 @@
 					</div>
 
 					<!-- /.feature 3  -->
-					<div class="col-sm-8 feat-list">
+					<div class="col-sm-12 feat-list">
 						<div class="inner">
 							<h4>Features Importance</h4>
-							<p>ADD STATISTICS</p>
+							<canvas id="importanceChart" style="width:100%;max-width:2500px"></canvas>
 						</div>
 					</div>
 
@@ -197,6 +196,9 @@
 							<p>ADD IMAGE</p>
 						</div>
 					</div> -->
+
+					<div id="loader"></div>
+					<div id="overlay"></div>
 
 				</div>
 			</div>
