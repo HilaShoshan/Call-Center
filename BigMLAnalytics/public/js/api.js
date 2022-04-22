@@ -35,14 +35,14 @@ function train() {
             // update features importance graph
             console.log(response.importance)
             var imp = response.importance
-            var xValues = ["Age", "City", "Num of Calls", "Gender", "Internet", 
-                            "Cable TV", "Cellular", "Period", "Call Day of Month", "Call Day of Week", 
-                            "Call Hour", "Call Minute", "Call Second", "Call Millisecond"]
+            var xValues = ["Age", "City", "Num of Calls", "Gender", "Internet",
+                "Cable TV", "Cellular", "Period", "Call Day of Month", "Call Day of Week",
+                "Call Hour", "Call Minute", "Call Second", "Call Millisecond"]
             var yValues = [imp.age, imp.city, imp.numOfCalls, imp.gender, imp.internet,
-                            imp.cableTV, imp.cellular, imp.period, imp['callTime.day-of-month'], imp['callTime.day-of-week'], 
-                            imp['callTime.hour'], imp['callTime.minute'], imp['callTime.second'], imp['callTime.millisecond']]                           
-            var barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9", "#1e7145", "#ffd700", "#800000", 
-                            "#800080", "#eeeeee", "#a0db8e", "#794044", "#101010", "#fa8072", "#696969"]
+            imp.cableTV, imp.cellular, imp.period, imp['callTime.day-of-month'], imp['callTime.day-of-week'],
+            imp['callTime.hour'], imp['callTime.minute'], imp['callTime.second'], imp['callTime.millisecond']]
+            var barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9", "#1e7145", "#ffd700", "#800000",
+                "#800080", "#eeeeee", "#a0db8e", "#794044", "#101010", "#fa8072", "#696969"]
 
             new Chart("importanceChart", {
                 type: "pie",
@@ -118,10 +118,40 @@ async function predictSubmit(event) {
     })
         .then(response => response.json())
         .then(response => {
-            console.log(response);
-            alert(JSON.stringify(response));
+            console.log(response)
+            // alert(JSON.stringify(response))
+
+            document.getElementById('prediction').innerText = response.prediction
+            document.getElementById('confidence').innerText = response.confidence * 100 + "%"
+
+            var xValues = new Array()
+            var yValues = new Array()
+            response.probabilities.forEach(element => {
+                xValues.push(element[0])
+                yValues.push(element[1] * 100)
+            })
+            console.log('xvals: ', xValues)
+            console.log('yvals: ', yValues)
+            var barColors = ["red", "green", "blue", "orange"]
+            new Chart("probabilitiesChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: "The probability that the model says each topic:"
+                    }
+                }
+            })
         })
         .catch(error => {
-            console.log(error);
-        });
+            console.log(error)
+        })
 }

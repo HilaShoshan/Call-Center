@@ -117,6 +117,7 @@ class BigML {
     async predict(features, res) {
         console.log("predict features: ", features)
         var modelID = await this.getModelID()
+        console.log("modelID: ", modelID)
         var prediction = new bigml.Prediction()
         prediction.create(modelID,
             features,
@@ -128,8 +129,11 @@ class BigML {
                         answer: 'OK',
                         prediction: predictionInfo.object.output,
                         confidence: predictionInfo.object.prediction_path.confidence,
-                        probabilities: predictionInfo.output.probabilities
+                        probabilities: predictionInfo.object.probabilities
                     })
+                }
+                else {
+                    console.log(error)
                 }
             }
         )

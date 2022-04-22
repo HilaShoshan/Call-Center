@@ -75,7 +75,6 @@ async function predict_cb(req, res, next) {
      */
     let BigML = new BigMLModel()
     const features = req.body.features
-    console.log("features: ", features)
     await BigML.predict(features, res)
 }
 

@@ -27,8 +27,6 @@ app.get('/train', controller.trainModel_cb)
 
 app.post('/predict', controller.predict_cb) 
 
-// app.post('/confusion_matrix', controller.UpdateMatrix_cb)
-
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`)

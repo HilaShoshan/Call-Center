@@ -24,7 +24,7 @@
 	<!-- Font Awesome -->
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 </head>
 
@@ -210,76 +210,103 @@
 		<div class="contact">
 
 			<div class="container">
-				<div class="row contact-row">
-					<h2>Enter a new call's data to predict its topic:</h2>
-					<p></p>
-					<!-- /.contact form -->
-					<div class="col-sm-7 contact-right">
-						<form onsubmit="predictSubmit(event)" id="contact-form" class="form-horizontal">
-							<div class="form-group">
-								<label for="periods">Choose a period:</label>
-								<select name="periods" required>
-									<option value="holidays">Holidays</option>
-									<option value="summer vacations">Summer Vacations</option>
-									<option value="normal">Normal</option>
-								</select>
+				<!--<div class="row">   row contact-row -->
+				<div class="row row-feat">
+					<div class="col-md-12">
+						<!-- /.contact form -->
+						<div class="col-sm-5 feat-list">
+							<!-- col-sm-5 contact-right -->
+							<div class="inner">
+								<h3>Enter a new call's data to predict its topic:</h3>
+								<p></p>
+								<form onsubmit="predictSubmit(event)" id="contact-form" class="form-horizontal">
+									<div class="form-group">
+										<label for="periods">Choose a period:</label>
+										<select name="periods" required>
+											<option value="holidays">Holidays</option>
+											<option value="summer vacations">Summer Vacations</option>
+											<option value="normal">Normal</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<input type="datetime-local" name="callTime" id="Email"
+											class="form-control wow fadeInUp" placeholder="Call Time" required />
+									</div>
+									<div class="form-group">
+										<input type="number" name="numOfCalls" id="Name"
+											class="form-control wow fadeInUp"
+											placeholder="Number of calls in the last month" required />
+									</div>
+									<div class="form-group">
+										<input type="checkbox" id="Name" name="internet" value="internet">
+										<label for="internet">The customer is interested in internet</label><br>
+									</div>
+									<div class="form-group">
+										<input type="checkbox" id="Name" name="cableTV" value="cableTV">
+										<label for="cableTV">The customer is interested in cable TV</label><br>
+									</div>
+									<div class="form-group">
+										<input type="checkbox" id="Name" name="cellular" value="cellular">
+										<label for="cellular">The customer is interested in cellular</label>
+									</div>
+									<div class="form-group">
+										<input type="number" name="age" id="Name" min="14" max="120"
+											class="form-control wow fadeInUp" placeholder="Customer Age" />
+									</div>
+									<div class="form-group">
+										<label for="genders">Choose customer's gender:</label>
+										<select name="genders">
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="cities">Choose customer's city:</label>
+										<select name="cities">
+											<option value="Ariel">Ariel</option>
+											<option value="Jerusalem">Jerusalem</option>
+											<option value="Tel-Aviv">Tel-Aviv</option>
+											<option value="Haifa">Haifa</option>
+											<option value="Nahariya">Nahariya</option>
+											<option value="Petah-Tikva">Petah-Tikva</option>
+											<option value="Ashdod">Ashdod</option>
+											<option value="Netanya">Netanya</option>
+											<option value="Bnei-Brak">Bnei-Brak</option>
+											<option value="Holon">Holon</option>
+											<option value="Beersheba">Beersheba</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<input type="submit" name="submit" value="Submit"
+											class="btn btn-success wow fadeInUp" />
+									</div>
+								</form>
 							</div>
-							<div class="form-group">
-								<input type="datetime-local" name="callTime" id="Email"
-									class="form-control wow fadeInUp" placeholder="Call Time" required />
+						</div>
+
+						<div class="col-sm-2 feat-list">
+							<div class="inner">
+								<p></p>
 							</div>
-							<div class="form-group">
-								<input type="number" name="numOfCalls" id="Name" class="form-control wow fadeInUp"
-									placeholder="Number of calls in the last month" required />
+						</div>
+
+						<!-- predict answer -->
+						<div class="col-sm-5 feat-list">
+							<div class="inner">
+								<h3>Predict Answer:</h3>
+								<p></p>
+								<p><b>Topic Prediction:</b> <span id="prediction"></span></p>
+								<p><b>Prediction Confidence:</b> <span id="confidence"></span></p>
+								<p><b>Prediction Probabilities:</b>
+									<canvas id="probabilitiesChart" style="width:100%;max-width:1000px"></canvas>
+								</p>
 							</div>
-							<div class="form-group">
-								<input type="checkbox" id="Name" name="internet" value="internet">
-								<label for="internet">The customer is interested in internet</label><br>
-							</div>
-							<div class="form-group">
-								<input type="checkbox" id="Name" name="cableTV" value="cableTV">
-								<label for="cableTV">The customer is interested in cable TV</label><br>
-							</div>
-							<div class="form-group">
-								<input type="checkbox" id="Name" name="cellular" value="cellular">
-								<label for="cellular">The customer is interested in cellular</label>
-							</div>
-							<div class="form-group">
-								<input type="number" name="age" id="Name" min="14" max="120"
-									class="form-control wow fadeInUp" placeholder="Customer Age" />
-							</div>
-							<div class="form-group">
-								<label for="genders">Choose customer's gender:</label>
-								<select name="genders">
-									<option value="male">Male</option>
-									<option value="female">Female</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="cities">Choose customer's city:</label>
-								<select name="cities">
-									<option value="Ariel">Ariel</option>
-									<option value="Jerusalem">Jerusalem</option>
-									<option value="Tel-Aviv">Tel-Aviv</option>
-									<option value="Haifa">Haifa</option>
-									<option value="Nahariya">Nahariya</option>
-									<option value="Petah-Tikva">Petah-Tikva</option>
-									<option value="Ashdod">Ashdod</option>
-									<option value="Netanya">Netanya</option>
-									<option value="Bnei-Brak">Bnei-Brak</option>
-									<option value="Holon">Holon</option>
-									<option value="Beersheba">Beersheba</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<input type="submit" name="submit" value="Submit"
-									class="btn btn-success wow fadeInUp" />
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 	<!-- /.javascript files -->
