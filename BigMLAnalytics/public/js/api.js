@@ -44,6 +44,8 @@ function train() {
             var barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9", "#1e7145", "#ffd700", "#800000",
                 "#800080", "#eeeeee", "#a0db8e", "#794044", "#101010", "#fa8072", "#696969"]
 
+            $('#importanceChart').remove()  // remove the <canvas> element
+            $('#pie-container').append('<canvas id="importanceChart"><canvas>')
             new Chart("importanceChart", {
                 type: "pie",
                 data: {
@@ -133,6 +135,9 @@ async function predictSubmit(event) {
             console.log('xvals: ', xValues)
             console.log('yvals: ', yValues)
             var barColors = ["red", "green", "blue", "orange"]
+
+            $('#probabilitiesChart').remove()  // remove the <canvas> element
+            $('#graph-container').append('<canvas id="probabilitiesChart"><canvas>')
             new Chart("probabilitiesChart", {
                 type: "bar",
                 data: {

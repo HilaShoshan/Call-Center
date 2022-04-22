@@ -37,7 +37,7 @@ class CallsSimulator {
          * returns a random date of birth of a customer in the company
          * we suppose that customers' age is 14+
          */
-        var year = utils.getRndInteger(1994, 2009)  // change min to 1900
+        var year = utils.getRndInteger(2000, 2009)  // change min to 1900
         var month = utils.getRndInteger(1, 12)
         if (month == 2) {
             var day = utils.getRndInteger(1, 28)

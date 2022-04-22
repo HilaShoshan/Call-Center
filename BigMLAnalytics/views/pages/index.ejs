@@ -185,7 +185,9 @@
 					<div class="col-sm-12 feat-list">
 						<div class="inner">
 							<h4>Features Importance</h4>
-							<canvas id="importanceChart" style="width:100%;max-width:2500px"></canvas>
+							<p id="pie-container">
+								<canvas id="importanceChart" style="width:100%;max-width:2500px"></canvas>
+							</p>
 						</div>
 					</div>
 
@@ -297,7 +299,7 @@
 								<p></p>
 								<p><b>Topic Prediction:</b> <span id="prediction"></span></p>
 								<p><b>Prediction Confidence:</b> <span id="confidence"></span></p>
-								<p><b>Prediction Probabilities:</b>
+								<p id="graph-container"><b>Prediction Probabilities:</b>
 									<canvas id="probabilitiesChart" style="width:100%;max-width:1000px"></canvas>
 								</p>
 							</div>
