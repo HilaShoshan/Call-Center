@@ -66,6 +66,7 @@
     <nav class="navbar  navbar-light">
      
       <div class="logo wow fadeInDown" style="margin-top: 50px"> <a href=""><img src="images/logo.png" alt="logo"></a></div>
+      
       <div id="left">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -73,7 +74,7 @@
         <div class="collapse navbar-collapse my-menu-toggler" id="navbarSupportedContent">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#waitingSection">Number Of Waiting Calls & Average Call Time Last
+              <a class="nav-link" href="#waitingSection">Number Of Waiting Calls & Average Waiting Time Last
                 10 Mins - GRAPH</a>
             </li>
             
@@ -82,21 +83,16 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link" href="#aregrationSection">Active Calls Num Broken Into 5 Minutes
-                Segments - GRAPH</a>
+              <a class="nav-link" href="#aregrationSection">Calls Number -5 Minutes Segments - GRAPH</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#aregrationSection-table">Active Calls Num Broken Into 5 Minutes
-                Segments - TABLE</a>
+              <a class="nav-link" href="#aregrationSection-table"> Calls Number- 5 Minute Segments - TABLE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#timeAgregationSection">Average Call Time Broken Into 5 Minutes
-                Segments - GRAPH</a>
+              <a class="nav-link" href="#timeAgregationSection">Average Waiting Time - 5 Minutes Segments - GRAPH</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#timeAgregationSection-table">Average Call Time Broken Into 5
-                Minutes
-                Segments - TABLE</a>
+              <a class="nav-link" href="#timeAgregationSection-table">Average Waiting Time - 5 Minutes Segments - TABLE</a>
             </li>
 
 
@@ -115,7 +111,7 @@
 
   <!-- wating calls section -->
   <section id="watingSection">
-    <h3 class="my-h3">Number Of Waiting Calls In REAL TIME & Average Call Time In Last 10 Minutes</h3>
+    <h3 class="my-h3">Number Of Waiting Calls In REAL TIME & Average Waiting Time In Last 10 Minutes</h3>
     <div class="card-deck">
       <div class="card">
         <div class="card-header">
@@ -127,7 +123,7 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <i class="far fa-clock graphFontAusomeIcon"></i>Average Call Time In Last 10 Minutes</h4>
+          <i class="far fa-clock graphFontAusomeIcon"></i>Average Waiting Time In Last 10 Minutes</h4>
         </div>
         <div class="card-body">
           <div id="timeWatingChart"></div>
@@ -138,9 +134,9 @@
   <hr>
 
 
-  <!-- number of calls acording to topic and city table section -->
+  <!-- number of calls acording to topic table section -->
   <section id="callsInfoSection">
-    <h3 class="my-h3">Number Of Calls Split Based On Call Topic & Caller City</h3>
+    <h3 class="my-h3">Number Of Calls Split Based On Call Topic </h3>
     <table class="table table-sm table-hover table-bordered">
       <thead class="thead-ligh">
         <tr>
@@ -184,7 +180,7 @@
   </section>
   <hr>
 
-  <!-- number of calls 5 minuts aregration section -->
+  <!-- number of calls 5 minutes aregration section -->
   <section id="aregrationSection">
     <h3 class="my-h3">Number Of Active Calls - During All Day, Split To 5 Minutes Segments</h3>
     <div class="demo-container">
@@ -217,7 +213,7 @@
   </section>
   <hr>
 
-  <!-- wating time 5 minuts aregration section -->
+  <!-- wating time 5 minutes aregration section -->
   <section id="timeAgregationSection">
     <h3 class="my-h3">Average Waiting Time Of Active Calls - During All Day Split To 5 Minutes Segments</h3>
     <div class="demo-container">
@@ -230,7 +226,7 @@
         <thead>
           <tr>
             <th scope="col">hour</th>
-            <th scope="col">minuts</th>
+            <th scope="col">minutes</th>
 
           </tr>
         </thead>
@@ -257,7 +253,7 @@
     <footer id="footer">
       <p class="myfooter-p">© Hila, Hadar 2022 BigData project</p>
   </section>
-  <!-- systemB.js implement -->
+  
 </body>
 
 </html>
