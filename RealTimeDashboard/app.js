@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const http = require('http')
 const path = require("path");
 const router = require("./routes/routes");
 const kafkaHandler = require("./utils/kafkaConnector.js");
@@ -18,18 +19,20 @@ app.set("views", "views");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(router);
+//app.get('/dashboard',controllers.getDashboard)
 
 app.use("/", controllers.redirect);
 kafkaHandler.connectToKafka()
     .then(() => {
         redisConnector.connectRedis(() => {
-            
+        
             const hour = 0;
             const min = 0;
             setFlushingOnRedis(hour, min);
             controllers.init();
             kafkaListenersSetter();
             const server = app.listen(4000);
+            controllers.getDashboard
             console.log("connected to server");
             socketHandler.init(server);
             console.log("socket-serve")

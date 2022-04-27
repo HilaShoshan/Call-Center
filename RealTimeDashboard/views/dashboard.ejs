@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
   <script>
@@ -27,6 +27,7 @@
         calls:  <%= fiveMin.getCount() %>
       });
    <% } %>
+
     timeWaitingCalls = [];
     <%for (let fiveMin of allDaySegment) {%>
       timeWaitingCalls.push({
@@ -43,6 +44,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&family=Overpass:ital,wght@1,700&family=Source+Code+Pro&family=Ubuntu:ital,wght@1,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <!-- jquey implement -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- fontawesome cdn -->
   <script src="https://kit.fontawesome.com/bdca2c6d1b.js" crossorigin="anonymous"></script>
@@ -55,12 +58,15 @@
   <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.common.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.light.css" />
   <script src="https://cdn3.devexpress.com/jslib/20.1.6/js/dx.all.js"></script>
-  <script src="/js/readData.js"></script>
-  <script src="/js/socketWork.js"></script>
+  <script src="js/readData.js"></script>
+  <script src="js/socketWork.js" ></script>
+  <script src="/socket.io/socket.io.js"></script>
+   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  
 </head>
 
-<body onload="initSocket()">
+<body onload="initSocket()"  >
   <!-- navbar section -->
   <section id="firstSection">
     <nav class="navbar  navbar-light">
@@ -101,16 +107,21 @@
       </div>
     </nav>
   </section>
+ 
   <hr>
+  <script src="/socket.io/socket.io.js"></script>
+  
+  
 
   <div id="header-of-board">
     <h1>This DashBoard Restarts Every 24 Hours</h1>
     </br>
     <h1>Date of Data: <%= date %></h1>
   </div>
+ 
 
   <!-- wating calls section -->
-  <section id="watingSection">
+  <section id="waitingSection">
     <h3 class="my-h3">Number Of Waiting Calls In REAL TIME & Average Waiting Time In Last 10 Minutes</h3>
     <div class="card-deck">
       <div class="card">
@@ -126,7 +137,7 @@
           <i class="far fa-clock graphFontAusomeIcon"></i>Average Waiting Time In Last 10 Minutes</h4>
         </div>
         <div class="card-body">
-          <div id="timeWatingChart"></div>
+          <div id="timeWaitingChart"></div>
         </div>
       </div>
     </div>
@@ -145,22 +156,19 @@
           <th scope="col">Service</th>
           <th scope="col">Complaint</th>
           <th scope="col">Disconnect</th>
-        
           <th scope="col">Total Calls</th>
         </tr>
         <tr>
-          <th>Total</th>
-          <td id="c00"><%=groupedByTopic['join']%></td>
-          <td id="c01"><%=groupedByTopic['service']%></td>
-          <td id="c02"><%=groupedByTopic['complaint']%></td>
-          <td id="c03"><%=groupedByTopic['disconnect']%></td>
-          <%let sum = 0 %>
-          <%for (let topic in groupedByTopic){%>
-           <% sum += groupedByTopic[topic]%>
-          <%}%>
-          <td id="c04"><%=sum%></td>
+          <th scope="col">Total</th>
+          <td id="join">0</th>
+          <td id="service">0</th>
+          <td id="complaint">0</th>
+          <td id="disconnect">0</th>
+          <td id="total">0</th>
         </tr>
+                
       </thead>
+      
       
     </table>
   </section>
@@ -203,8 +211,8 @@
             <%let hour = fiveMin.getHour();%>
             <%let value = fiveMin.getCount(); %>
             <td> <%=hour%> </td>
-             <%let id = hour + "-ActiveCalls"; %>
-            <td id='<%=id%>'> <%=value%></td>
+             <%let id = hour+"-waiting"; %>
+            <td id='<%=id%>'> 555</td>
           </tr>
           <% }%> 
         </tbody>
@@ -217,7 +225,7 @@
   <section id="timeAgregationSection">
     <h3 class="my-h3">Average Waiting Time Of Active Calls - During All Day Split To 5 Minutes Segments</h3>
     <div class="demo-container">
-      <div id="fiveMinWatingChart">
+      <div id="fiveMinWaitingChart">
       </div>
     </div>
 
@@ -236,7 +244,7 @@
           <tr>
              <%let hour = fiveMinWaiting.getHour(); %>
              <%let avgTime = fiveMinWaiting.getAvgWaitingTime(); %>
-             <%let id = hour + "-Waiting"; %>
+             <%let id = hour; %>
             <th scope="row"> <%=hour%> </th>
             <td id='<%=id%>'> <%=avgTime%></td>
           </tr>
@@ -253,6 +261,7 @@
     <footer id="footer">
       <p class="myfooter-p">© Hila, Hadar 2022 BigData project</p>
   </section>
+  
   
 </body>
 

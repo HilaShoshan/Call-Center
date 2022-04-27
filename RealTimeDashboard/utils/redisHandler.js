@@ -23,6 +23,7 @@ module.exports = {
             }
             else{
                 console.log("send to Redis successfully")
+
             }
         });
     },
@@ -40,12 +41,12 @@ module.exports = {
             });
         });
     } ,
-    flushAll: (callBack) => {
+    flushAll: () => {
         redisDb.flushall('ASYNC',(err, success) => {
             if(err){
                 throw new Error(err)
             }
-            callBack(success)
+            success
         });
     }
 };

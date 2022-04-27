@@ -16,7 +16,7 @@ $(function () {
 
 // wating time in past 10 minuts bar chart function
 $(function () {
-    $("#timeWatingChart").dxChart({
+    $("#timeWaitingChart").dxChart({
         dataSource: avgWaiting,
         series: {
             argumentField: "title",
@@ -65,14 +65,14 @@ $(function () {
 // 5 minuts wting time aregression line chart function
 $(function () {
     $("#fiveMinWaitingChart").dxChart({
-        dataSource: timeWatingCalls,
+        dataSource: timeWaitingCalls,
         commonSeriesSettings: {
             type: "line",
             argumentField: "hour",
             ignoreEmptyPoints: true
         },
         series: [
-            { valueField: "avgTime", name: "wating time in seconds" }
+            { valueField: "avgTime", name: "waiting time in seconds" }
         ]
     });
 });
