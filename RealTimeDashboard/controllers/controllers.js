@@ -12,11 +12,11 @@ module.exports = {
         CallDataCollection.getCallsFromRedis().then(()=>{
             AllDay.init()
             AllDay.getDataFromCallDataCollection(CallDataCollection.getCollection())
-            setInterval(()=>{
+            //setInterval(()=>{
                 const avgWaitingTimeOfLast10Mins = _calcNew10MinAvg()
                 const socketIo= socketHandler.getSocket()
                 socketIo.emit("updateAvgOfLast10Mins", avgWaitingTimeOfLast10Mins)
-            },  6000)
+            //},  6000)
             
             console.log("updating every min - set")
         }).catch((err) => {throw Error(err)})
