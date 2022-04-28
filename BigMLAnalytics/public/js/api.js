@@ -151,7 +151,7 @@ async function predictSubmit(event) {
                     legend: { display: false },
                     title: {
                         display: true,
-                        text: "The probability that the model says each topic:"
+                        text: "The probability of each topic:"
                     }
                 }
             })
