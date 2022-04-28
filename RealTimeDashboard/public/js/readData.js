@@ -7,8 +7,15 @@ $(function () {
             valueField: "numOfCallers",
             name: "number of REAL TIME calls in the call center",
             type: "bar",
-            color: "#ff7171"
+            color: "#ff7171",
+            
+            
+        },
+        size: {
+            height: 200,
+            width: 200
         }
+       
     });
 });
 
@@ -21,9 +28,13 @@ $(function () {
         series: {
             argumentField: "title",
             valueField: "avg",
-            name: "seconds",
+            name: "minutes",
             type: "bar",
             color: "#00bcd4"
+        },
+        size: {
+            height: 200,
+            width: 200
         }
     });
 });
@@ -43,6 +54,10 @@ $(function () {
         },
         seriesTemplate: {
             nameField: "topic"
+        },
+        size: {
+            height: 200,
+            width: 500
         }
     });
 });
@@ -54,11 +69,16 @@ $(function () {
         commonSeriesSettings: {
             type: "line",
             argumentField: "hour",
-            ignoreEmptyPoints: true
+            ignoreEmptyPoints: true,
+            color: "#cc65fe"
         },
         series: [
             { valueField: "calls", name: "number of calls" }
-        ]
+        ],
+        size: {
+            height: 200,
+            width: 400
+        }
     });
 });
 
@@ -69,10 +89,15 @@ $(function () {
         commonSeriesSettings: {
             type: "line",
             argumentField: "hour",
-            ignoreEmptyPoints: true
+            ignoreEmptyPoints: true,
+            color: "#20c997"
         },
         series: [
-            { valueField: "avgTime", name: "waiting time in seconds" }
-        ]
+            { valueField: "avgTime", name: "avg waiting time in minutes" }
+        ],
+        size: {
+            height: 200,
+            width: 400
+        }
     });
 });

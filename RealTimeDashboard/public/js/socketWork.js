@@ -76,6 +76,12 @@ function initSocket() {
                 }
             }
         }
+        for(let i =0 ; i < numOfCalls.length; i++){
+            if(numOfCalls[i].hour === relCallsOfAllDay[0].hour){
+                var id = numOfCalls[i].hour
+                document.getElementById(id+"-waiting").innerHTML++;
+            }
+        }
         $("#fiveMinAmountChart").dxChart("refresh");
     
 
@@ -94,6 +100,12 @@ function initSocket() {
                     index2++;
                     index++;
                 }
+            }
+        }
+        for(let i =0 ; i < timeWaitingCalls.length; i++){
+            if(timeWaitingCalls[i].hour === relCallsOfAllDay[0].hour){
+                var id = timeWaitingCalls[i].hour
+                document.getElementById(id).innerHTML= timeWaitingCalls[i].avgTime;
             }
         }
         $("#fiveMinWaitingChart").dxChart("refresh");

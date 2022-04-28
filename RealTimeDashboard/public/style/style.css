@@ -7,6 +7,9 @@ body{
   text-align: center;
   min-height: 100%;
 }
+h1{
+  font-size: 1cm;
+}
   
 hr{
   border: 0 !important;
@@ -16,19 +19,21 @@ hr{
       /* width: 100% !important; */
   margin: 0 !important;
 }
+
   
   /* firstSection styles*/
 #firstSection{
-  background-color: #ecfbfc;
+  background-color: #080c0c;
   font-family: 'Montserrat', sans-serif;
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  height: 100px;
   
 }
 .logo {
   margin: 80px 0 100px 0;
 }
 .logo img{
-  width: 150px; 
+  width: 200px; 
   height: 50px
 }
   
@@ -44,7 +49,7 @@ hr{
 #waitingSection{
   background-color: #fff;
   font-family: 'Montserrat', sans-serif;
-  margin: 100px 100px 100px 100px;
+  margin: 0px 0px 20px -400px;
   text-align: center;
 }
   
@@ -81,7 +86,8 @@ hr{
   background-color: #ecfbfc;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  padding-bottom: 50px;
+ 
+  width: 696px;
 }
   
   /* topic Distribution section */
@@ -111,9 +117,9 @@ hr{
 }
   /* vertial scroling settings for the tables */
 .my-custom-scrollbar {
-  margin-top: 60px;
+  margin-top: 0px;
   position: relative;
-  height: 300px;
+  height: 200px;
   overflow: auto;
 }
   
@@ -122,7 +128,7 @@ hr{
 }
   
 .my-agrationTable{
-  margin: 6rem auto auto auto;
+  margin: 0rem auto auto auto;
   width: auto !important;
 }
   
@@ -130,7 +136,7 @@ hr{
   
 #footerSection{
   color: #565d47;
-  background-color: #ecfbfc;
+  background-color: #1d2223;
   text-align: center;
   margin-top: 6rem;
   margin-bottom: 0;
@@ -152,4 +158,168 @@ hr{
   text-align: center;
   margin-top: 35px;
   margin-bottom: 35px;
+  
+}
+#title{
+  font-size: 100%;
+}
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: grid;
+  clear: both;
+}
+.card-deck-n {
+    display: -ms-flexbox;
+    display: flow-root;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-right: -15px;
+    margin-left: 400px;
+    padding: 10px;
+    
+}
+.card-deck-n1 {
+  display: -ms-flexbox;
+  display: flow-root;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  margin-right: -15px;
+  margin-left: 65px;
+  padding: 1px;
+  
+}
+.card-hadar1 {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  
+
+}
+.card-hadar2 {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  margin-left: 400px;
+
+}
+.card-hadar3 {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  margin-left: 250px;
+}
+
+.card-hadar {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  
+
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0.25rem;
+    height: 220px;
+    width: 250px;
+   
+}
+.card-body-t {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 0.25rem;
+  height: 100px;
+  width: 700px;
+ 
+}
+.card-body-graph {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 0.25rem;
+  height: 220px;
+  width: 400px;
+ 
+}
+
+.card-body-topic{
+  -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    height: 220px;
+    width: 700px;
+
+}
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  width: 200px;
+}
+.card-h {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  width: 100px;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card-new {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
 }
