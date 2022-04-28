@@ -15,6 +15,7 @@ module.exports = setListenersOnKafka = () => {
             nCallData.updateRedis()
             CallDataCollection.addCallDataInstance(nCallData)
             controllers.newCallEnded(nCallData)
+            controllers.numOfCallerChanged(CallDataCollection.getUpdatedNumberOfCallers())
             //
             /*
             const nNumOfCallers = new NumOfCallers(m.value.toString());

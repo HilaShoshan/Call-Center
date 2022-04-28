@@ -1,166 +1,325 @@
 /* tags styles */
 html{
     height: 100%;
-  }
+}
   
-  body{
-    text-align: center;
-    min-height: 100%;
-  }
+body{
+  text-align: center;
+  min-height: 100%;
+}
+h1{
+  font-size: 1cm;
+}
   
-  hr{
-    border: 0 !important;
-      height: 1px !important;
-      background: #333 !important;
-      background-image: linear-gradient(to right, #ccc, #333, #ccc) !important;
+hr{
+  border: 0 !important;
+  height: 1px !important;
+  background: #333 !important;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc) !important;
       /* width: 100% !important; */
-      margin: 0 !important;
-  }
+  margin: 0 !important;
+}
+
   
   /* firstSection styles*/
-  #firstSection{
-    background-color: #ecfbfc;
-    font-family: 'Montserrat', sans-serif;
-    padding-bottom: 1.5rem;
+#firstSection{
+  background-color: #080c0c;
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 0.5rem;
+  height: 100px;
   
-  }
-  .logo {
-    margin: 80px 0 100px 0;
-  }
-  .logo img{
-    width: 150px; 
-    height: 50px
-  }
+}
+.logo {
+  margin: 80px 0 100px 0;
+}
+.logo img{
+  width: 200px; 
+  height: 50px
+}
   
-  .my-menu-toggler{
-    text-align: right;
-  }
+.my-menu-toggler{
+  text-align: right;
+}
   
-  .my-brand{
-    color: #565d47 !important;
-  }
+.my-brand{
+  color: #565d47 !important;
+}
   
   /* wating time and number of calls graph styles */
-  #watingSection{
-    background-color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    margin: 100px 100px 100px 100px;
-    text-align: center;
-  }
+#waitingSection{
+  background-color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0px 0px 20px -400px;
+  text-align: center;
+}
   
   /* graph element */
-  #chart {
-      height: 400px;
-      width: 230px;
-      margin: auto;
-  }
+#chart {
+  height: 400px;
+  width: 230px;
+  margin: auto;
+}
   
-  #timeWatingChart{
-    height: 400px;
-    width: 210px;
-    margin: auto;
-  }
+#timeWaitingChart{
+  height: 400px;
+  width: 210px;
+  margin: auto;
+}
   
-  .my-h3{
-    color: #565d47;
-    margin-bottom: 3rem;
-    padding-top: 1rem;
-  }
+.my-h3{
+  color: #565d47;
+  margin-bottom: 3rem;
+  padding-top: 1rem;
+}
   
-  .graphFontAusomeIcon{
-    margin-right: 10px;
-    color: green;
-  }
+.graphFontAusomeIcon{
+  margin-right: 10px;
+  color: green;
+}
   
-  .my-card{
-    text-align: center !important;
-  }
+.my-card{
+  text-align: center !important;
+}
   
   /* calls info Section */
-  #callsInfoSection{
-    background-color: #ecfbfc;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    padding-bottom: 50px;
-  }
-  
-  /* language distribution section styles */
-  #langDistribution{
-    text-align: center;
-    margin: 100px;
-  }
-  
-  #languageChart{
-    height: 440px;
-    text-align: center;
-  }
+#callsInfoSection{
+  background-color: #ecfbfc;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+ 
+  width: 696px;
+}
   
   /* topic Distribution section */
-  #topicDistribution{
-    text-align: center;
-    margin: 0;
-    padding-bottom: 50px;
-    background-color: #ecfbfc;
-  }
+#topicDistribution{
+  text-align: center;
+  margin: 0;
+  padding-bottom: 50px;
+  background-color: #ecfbfc;
+}
   
-  #topicChart{
-    height: 440px;
-    text-align: center;
-  }
+#topicChart{
+  height: 440px;
+  text-align: center;
+}
   
   /* aregression Section, number of calls every 5 minuts*/
-  #aregrationSection{
-    margin: 100px;
-    text-align: center;
-  }
+#aregrationSection{
+  margin: 100px;
+  text-align: center;
+}
   
   /* time wating every 5 minuts section styles */
-  #timeAgregationSection{
-    margin: 100px 100px 0 100px;
-    text-align: center;
-    background-color: #ecfbfc;
-  }
+#timeAgregationSection{
+  margin: 100px 100px 0 100px;
+  text-align: center;
+  background-color: #ecfbfc;
+}
   /* vertial scroling settings for the tables */
-  .my-custom-scrollbar {
-    margin-top: 60px;
+.my-custom-scrollbar {
+  margin-top: 0px;
   position: relative;
-  height: 300px;
+  height: 200px;
   overflow: auto;
-  }
+}
   
-  .table-wrapper-scroll-y {
+.table-wrapper-scroll-y {
   display: block;
-  }
+}
   
-  .my-agrationTable{
-    margin: 6rem auto auto auto;
-    width: auto !important;
-  }
+.my-agrationTable{
+  margin: 0rem auto auto auto;
+  width: auto !important;
+}
   
   /* footerSection styles */
   
-  #footerSection{
-    color: #565d47;
-    background-color: #ecfbfc;
-    text-align: center;
-    margin-top: 6rem;
-    margin-bottom: 0;
-    padding: 0 3rem 2rem 2rem;
-    bottom: 0;
+#footerSection{
+  color: #565d47;
+  background-color: #1d2223;
+  text-align: center;
+  margin-top: 6rem;
+  margin-bottom: 0;
+  padding: 0 3rem 2rem 2rem;
+  bottom: 0;
     /* width: 100%; */
-  }
+}
   
-  #footer{
-    padding-top: 3rem;
-  }
+#footer{
+  padding-top: 3rem;
+}
   
-  #left{
-    margin-left:auto; margin-right:0;
-  }
+#left{
+  margin-left:auto; margin-right:0;
+}
   
-  #header-of-board{
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
-      margin-top: 35px;
-      margin-bottom: 35px;
+#header-of-board{
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  
+}
+#title{
+  font-size: 100%;
+}
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: grid;
+  clear: both;
+}
+.card-deck-n {
+    display: -ms-flexbox;
+    display: flow-root;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin-right: -15px;
+    margin-left: 400px;
+    padding: 10px;
+    
+}
+.card-deck-n1 {
+  display: -ms-flexbox;
+  display: flow-root;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  margin-right: -15px;
+  margin-left: 65px;
+  padding: 1px;
+  
+}
+.card-hadar1 {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  
+
+}
+.card-hadar2 {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  margin-left: 400px;
+
+}
+.card-hadar3 {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  margin-left: 250px;
+}
+
+.card-hadar {
+  position: inherit;
+  
+  display: -webkit-inline-box;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  
+
+}
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0.25rem;
+    height: 220px;
+    width: 250px;
+   
+}
+.card-body-t {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 0.25rem;
+  height: 100px;
+  width: 700px;
+ 
+}
+.card-body-graph {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 0.25rem;
+  height: 220px;
+  width: 400px;
+ 
+}
+
+.card-body-topic{
+  -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    height: 220px;
+    width: 700px;
+
+}
+.card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  width: 200px;
+}
+.card-h {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  width: 100px;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
   }
+}
+
+/* Style the counter cards */
+.card-new {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}

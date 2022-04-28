@@ -12,11 +12,11 @@ module.exports = {
         CallDataCollection.getCallsFromRedis().then(()=>{
             AllDay.init()
             AllDay.getDataFromCallDataCollection(CallDataCollection.getCollection())
-            setInterval(()=>{
+           // setInterval(()=>{
                 const avgWaitingTimeOfLast10Mins = _calcNew10MinAvg()
                 const socketIo= socketHandler.getSocket()
                 socketIo.emit("updateAvgOfLast10Mins", avgWaitingTimeOfLast10Mins)
-            },  1000)
+            //},  6000)
             
             console.log("updating every min - set")
         }).catch((err) => {throw Error(err)})
@@ -31,8 +31,12 @@ module.exports = {
     },
     getDashboard: (req, res, next) => {
         const configObjForUi = _createConfigObjForUi()
+        
         configObjForUi.numOfCallers=parseInt(CallDataCollection.getUpdatedNumberOfCallers());
         res.render("dashboard", configObjForUi)
+        
+        
+        
     },
     numOfCallerChanged: (newNum) => {
         const socketIo = socketHandler.getSocket()
@@ -42,6 +46,7 @@ module.exports = {
     },
     newCallEnded: (nCallData)=>{
         const socketIo = socketHandler.getSocket()
+        console.log("topic",nCallData["topic"])
         socketIo.emit("updateTopicTable",{
             topic: nCallData["topic"]
         });
@@ -56,7 +61,9 @@ module.exports = {
     },
     redirect: (req, res, next) => {
         res.redirect("dashboard")
+        
     }
+    
     /*,
     renderDashboard: (req, res) => {
         res.render(path.join(__dirname, '../views/dashboard.ejs'));

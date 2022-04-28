@@ -56,14 +56,14 @@ module.exports = class CallDataCollection{
     }
     static getUpdatedNumberOfCallers() {
         // return _isEmpty() ? 0 : _collection.slice(-1)[0].getNumOfCallers();
-        console.log("collec=",_collection)
+        //console.log("collec=",_collection)
         const tmp = _collection.filter(callData => this.finishWaiting(callData))
         //return _isEmpty() ? 0 : _collection.length
         console.log("tmp.length", tmp.length)
         return tmp.length
  
      }
- 
+ //not finish
      static finishWaiting(elem){
          const date = Date.now()
          const dateTimeFormat = new Intl.DateTimeFormat("en", {hour: "numeric", minute:"numeric", hour12:false});
@@ -74,18 +74,19 @@ module.exports = class CallDataCollection{
          const newDate = dataObj.setMinutes(dataObj.getMinutes()+elem["waitingTime"])
          const wait = new Date(newDate).toISOString()
          const [,time] = wait.split("T")
-         const [,minOfWait] = time.split(":")
+         const [hourOfWait,minOfWait] = time.split(":")
         // console.log("finishh",elem["endTime"])
          //const [dateOfCall, time] = elem["endTime"].split("T")
          //const [callHour, callMinute] = time.split(":")
          //console.log("trueOrFalse",( callHour - hour ) )
-         return  (minute- minOfWait < 0)
+         console.log("finish waiting",minute- minOfWait)
+         return  (hour - hourOfWait < 0)||(minute- minOfWait < 0)
      }
     static getCollection(){
         return _collection
     }
     static groupByTopic(){
-        console.log("groupbytopic",_groupBy("topic"))
+        //console.log("groupbytopic",_groupBy("topic"))
         return _groupBy("topic")
     }
     
@@ -97,5 +98,6 @@ const _groupBy = (val) => {
     
 };
 const _isEmpty = () => {
+    
     return _collection.length === 0 ? true : false;
 };
