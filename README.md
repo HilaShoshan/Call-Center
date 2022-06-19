@@ -5,16 +5,17 @@ The project simulates a system of a company that provides Internet, Cable TV and
 The company receives calls during the day from people who want to join / service / complaint / disconnect.
 We use Lambda Architecture to analyze the calls data, where the Gateway in our project is Kafka, the Cold path is the BigMLAnalytics part, and the Warm path is the RealTimeDeshboard part.
 
-This project consists of 4 main parts:
+### This project consists of 4 main parts:
 
 1. CustomerData: stores data about customers in our company in a MySQL database, using https://mysql.site4now.net/ cloud service. 
    Our customer_data table is:
+   
    ![](https://github.com/HilaShoshan/Call-Center/blob/main/readme_images/mysql.png)
    
 2. Simulator: produces incoming calls (with a slight bias, so that we can learn from it), and send them as messages to Kafka:
    ![](https://github.com/HilaShoshan/Call-Center/blob/main/readme_images/kafka-massage.png)
    Then, kafka will send it to the two following consumers. 
-   ![](https://github.com/HilaShoshan/Call-Center/blob/main/readme_images/project-diagram.png)
+   ![image](https://user-images.githubusercontent.com/47945052/174476479-92df1f5e-3e58-47dc-a409-2b9e801a918e.png)
 
 3. RealTimeDashboard: uses Redis Docker Image (https://hub.docker.com/_/redis) to store the calls data of the current day and present it in tables / widgets.
    For example, the average waiting time by hours:
@@ -32,5 +33,14 @@ This project consists of 4 main parts:
    ![](https://github.com/HilaShoshan/Call-Center/blob/main/readme_images/bigml-modelinfo.png)
    
 
-To run our project:
+### To run our project:
+Open 4 terminals, one in each main directory, and run the following commands (in the same order):
 
+1) (CustomerData) node ./app.js
+2) (Simulator) node ./index.js
+3) (BigMLAnalytics) node ./app.js
+4) (RealTimeDashboard) node ./app.js
+
+Then, open in browser:
+1) localhost:3001 for running BigMLAnalytics website
+2) localhost:4000 for running RealTimeDashboard website
