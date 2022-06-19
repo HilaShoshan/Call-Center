@@ -9,7 +9,7 @@ const { mongoDbClient } = require('../models/mongodb')
 const BigMLModel = require('../models/bigml')
 // require view
 
-var url = ""  // url of the mongo conf, include username and passward
+var url = ""  // url of the mongo conf, include username and password
 const mongoConf = {
     url: url,
     dbName: "callsDB"
