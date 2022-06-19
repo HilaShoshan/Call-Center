@@ -4,12 +4,12 @@ const kafkaConf = {
     "socket.keepalive.enable": true,
     "security.protocol": "SASL_SSL",
     "sasl.mechanisms": "SCRAM-SHA-256",
-    "sasl.username": "zaxe17g1",
-    "sasl.password": "OFVYXGQFX3m71Vzh8ISp8W3aIGEAtCxB",
+    "sasl.username": "",
+    "sasl.password": "",
     "debug": "generic,broker,security"
 }
   
-const prefix = "zaxe17g1-"
+const prefix = ""
 const topic = `${prefix}CallCenterAnalytics`
 
 module.exports = Object.freeze({
